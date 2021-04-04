@@ -1,4 +1,4 @@
-package com.sw.acs.security;
+package com.sw.acs.domain;
 
 import org.apache.shiro.authc.AuthenticationToken;
 
@@ -9,9 +9,7 @@ import org.apache.shiro.authc.AuthenticationToken;
 public class JwtToken implements AuthenticationToken {
     private String token;
 
-    public JwtToken(){
-
-    }
+    public JwtToken(){}
 
     public JwtToken(String token){
         this.token = token;

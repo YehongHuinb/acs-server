@@ -1,7 +1,9 @@
 package com.sw.acs.config;
 
-import com.sw.acs.security.filter.JwtFilter;
-import com.sw.acs.security.realms.UserRealm;
+
+import com.sw.acs.filter.JwtFilter;
+import com.sw.acs.realms.UserRealm;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
 import org.apache.shiro.mgt.DefaultSubjectDAO;
 import org.apache.shiro.mgt.SecurityManager;
@@ -24,7 +26,7 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
     @Bean
-    public ShiroFilterFactoryBean shiroFilterFactoryBean(@Qualifier("defaultWebSecurityManager") DefaultWebSecurityManager defaultWebSecurityManager, JwtFilter jwtFilter){
+    public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager defaultWebSecurityManager, JwtFilter jwtFilter){
 
         ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
         //设置安全管理器
@@ -32,7 +34,9 @@ public class ShiroConfig {
 
         Map<String,String> filterChainDefinitionMap = new LinkedHashMap<>();
         //配置系统公共资源
-        filterChainDefinitionMap.put("/user/**","anon");
+        filterChainDefinitionMap.put("/user/login","anon");
+        filterChainDefinitionMap.put("/user/register","anon");
+        filterChainDefinitionMap.put("/user/logout","logout");
         //配置系统受限资源
         filterChainDefinitionMap.put("/**","jwt");
         factoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
@@ -41,13 +45,12 @@ public class ShiroConfig {
         Map<String, Filter> filterMap = new LinkedHashMap<>();
         filterMap.put("jwt",jwtFilter);
         factoryBean.setFilters(filterMap);
-        factoryBean.setLoginUrl("login.jsp");
 
         return factoryBean;
     }
 
     @Bean
-    public DefaultWebSecurityManager defaultWebSecurityManager(@Qualifier("userRealm") UserRealm userRealm){
+    public DefaultWebSecurityManager defaultWebSecurityManager(UserRealm userRealm){
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(userRealm);
 
@@ -60,13 +63,23 @@ public class ShiroConfig {
         return securityManager;
     }
 
+
     @Bean
-    public UserRealm userRealm(){
-        return new UserRealm();
+    public HashedCredentialsMatcher getHashedCredentialsMatcher(){
+        HashedCredentialsMatcher matcher = new HashedCredentialsMatcher("md5");
+        matcher.setHashIterations(1);
+        return matcher;
     }
 
     @Bean
-    public FilterRegistrationBean<Filter> jwtFilterRegistration(@Qualifier("jwtFilter") JwtFilter jwtFilter){
+    public UserRealm getUserRealm(HashedCredentialsMatcher matcher){
+        UserRealm userRealm = new UserRealm();
+        userRealm.setCredentialsMatcher(matcher);
+        return userRealm;
+    }
+
+    @Bean
+    public FilterRegistrationBean<Filter> jwtFilterRegistration(JwtFilter jwtFilter){
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>(jwtFilter);
         filterRegistrationBean.setEnabled(false);
         return filterRegistrationBean;

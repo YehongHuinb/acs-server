@@ -6,7 +6,7 @@ import java.util.Date;
  * @author: ZZP
  * @time: 2021/4/3 17:42
  */
-public class examPaper {
+public class ExamPaper {
     private Integer id;
     private String name;
     private Date createDate;

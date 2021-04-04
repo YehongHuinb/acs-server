@@ -1,6 +1,6 @@
-package com.sw.acs.security.filter;
+package com.sw.acs.filter;
 
-import com.sw.acs.security.JwtToken;
+import com.sw.acs.domain.JwtToken;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.web.filter.authc.AuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;

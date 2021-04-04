@@ -17,14 +17,7 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public String login(LoginBody loginBody) {
-        User user = userMapper.selectUserByUserName(loginBody.getUserName());
-
-        if(user == null){
-            return "1";
-        } else if(!user.getPassword().equals(loginBody.getPassword())){
-            return "1";
-        }
-       return "0";
+    public User selectUserByUserName(String userName) {
+        return userMapper.selectUserByUserName(userName);
     }
 }

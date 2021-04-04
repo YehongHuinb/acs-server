@@ -1,6 +1,7 @@
 package com.sw.acs.domain;
 
 /**
+ * 登陆信息
  * @author 周良聪
  */
 public class LoginBody {

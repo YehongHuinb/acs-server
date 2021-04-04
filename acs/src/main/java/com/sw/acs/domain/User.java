@@ -6,8 +6,8 @@ package com.sw.acs.domain;
  */
 public class User {
     private Integer id;
-    private String account;
     private String userName;
+    private String nikeName;
     private String password;
     private String telephone;
     private String sex;
@@ -22,20 +22,20 @@ public class User {
         this.id = id;
     }
 
-    public String getAccount() {
-        return account;
-    }
-
-    public void setAccount(String account) {
-        this.account = account;
-    }
-
     public String getUserName() {
         return userName;
     }
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getNikeName() {
+        return nikeName;
+    }
+
+    public void setNikeName(String nikeName) {
+        this.nikeName = nikeName;
     }
 
     public String getPassword() {
@@ -82,8 +82,8 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", account='" + account + '\'' +
                 ", userName='" + userName + '\'' +
+                ", nikeName='" + nikeName + '\'' +
                 ", password='" + password + '\'' +
                 ", telephone='" + telephone + '\'' +
                 ", sex='" + sex + '\'' +

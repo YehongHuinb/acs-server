@@ -1,5 +1,6 @@
 package com.sw.acs.shiro.realms;
 
+import com.sw.acs.service.UserService;
 import com.sw.acs.shiro.matcher.JwtMatcher;
 import com.sw.acs.shiro.matcher.PasswordMatcher;
 import com.sw.acs.shiro.token.JwtToken;
@@ -19,17 +20,23 @@ import java.util.List;
 @Component
 public class RealmManager {
 
-    @Autowired
     private PasswordMatcher passwordMatcher;
+    private JwtMatcher jwtMatcher;
+    private UserService userService;
 
     @Autowired
-    private JwtMatcher jwtMatcher;
+    public RealmManager(PasswordMatcher passwordMatcher, JwtMatcher jwtMatcher, UserService userService) {
+        this.passwordMatcher = passwordMatcher;
+        this.jwtMatcher = jwtMatcher;
+        this.userService = userService;
+    }
 
     public List<Realm> initRealm(){
         List<Realm> realms = new ArrayList<>();
         EhCacheManager ehCacheManager = new EhCacheManager();
 
         PasswordRealm passwordRealm = new PasswordRealm();
+        passwordRealm.setUserService(userService);
         passwordRealm.setCredentialsMatcher(passwordMatcher);
         passwordRealm.setAuthenticationTokenClass(PasswordToken.class);
         passwordRealm.setCacheManager(ehCacheManager);
@@ -41,10 +48,6 @@ public class RealmManager {
         JwtRealm jwtRealm = new JwtRealm();
         jwtRealm.setCredentialsMatcher(jwtMatcher);
         jwtRealm.setAuthenticationTokenClass(JwtToken.class);
-        jwtRealm.setCacheManager(ehCacheManager);
-        jwtRealm.setCachingEnabled(true);
-        jwtRealm.setAuthenticationCachingEnabled(true);
-        jwtRealm.setAuthorizationCachingEnabled(true);
         realms.add(jwtRealm);
 
         return Collections.unmodifiableList(realms);

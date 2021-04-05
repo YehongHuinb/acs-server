@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class PasswordRealm extends AuthorizingRealm {
 
-    @Autowired
     private UserService userService;
 
     @Override
@@ -27,6 +26,7 @@ public class PasswordRealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
+
         if (!(authenticationToken instanceof PasswordToken)) {
             return null;
         }
@@ -45,4 +45,7 @@ public class PasswordRealm extends AuthorizingRealm {
         return new SimpleAuthenticationInfo(user.getUserName(),user.getPassword(),getName());
     }
 
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.sound.midi.Soundbank;
 
 /**
  * @author 周良聪
@@ -26,6 +27,7 @@ public class UserController {
 
     @PostMapping("/login")
     public AjaxResult login(@RequestBody LoginBody loginBody){
+        System.out.println("登录");
         PasswordToken passwordToken = new PasswordToken(loginBody.getUserName(), loginBody.getPassword());
         Subject subject = SecurityUtils.getSubject();
         subject.login(passwordToken);

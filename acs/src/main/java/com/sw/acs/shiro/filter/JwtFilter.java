@@ -17,7 +17,7 @@ public class JwtFilter extends AccessControlFilter {
 
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
-        return false;
+        return !isLoginRequest(request, response);
     }
 
     @Override

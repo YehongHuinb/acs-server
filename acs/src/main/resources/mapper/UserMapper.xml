@@ -6,7 +6,7 @@
     </select>
     
     <select id="selectUserByUserName" resultType="com.sw.acs.domain.User">
-
+        select * from t_user where user_name = #{userName}
     </select>
 
     <select id="selectUserList" resultType="com.sw.acs.domain.User">

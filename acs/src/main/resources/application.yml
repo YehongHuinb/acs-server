@@ -1,6 +1,7 @@
 server:
   servlet:
     context-path: /acs
+  port: 8081
 
 
 spring:

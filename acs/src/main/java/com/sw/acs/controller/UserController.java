@@ -1,7 +1,11 @@
 package com.sw.acs.controller;
 
+import com.sw.acs.domain.AjaxResult;
+import com.sw.acs.shiro.token.JwtToken;
 import com.sw.acs.domain.LoginBody;
 import com.sw.acs.service.UserService;
+import com.sw.acs.shiro.token.PasswordToken;
+import com.sw.acs.utils.JwtUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +24,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    public void login(@RequestBody LoginBody loginBody){
+    @PostMapping("/login")
+    public AjaxResult login(@RequestBody LoginBody loginBody){
+        PasswordToken passwordToken = new PasswordToken(loginBody.getUserName(), loginBody.getPassword());
         Subject subject = SecurityUtils.getSubject();
-
+        subject.login(passwordToken);
+        String token = JwtUtils.sign(loginBody.getUserName());
+        return AjaxResult.success(token);
     }
 
 }

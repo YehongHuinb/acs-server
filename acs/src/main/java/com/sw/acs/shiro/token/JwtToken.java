@@ -1,35 +1,34 @@
-package com.sw.acs.domain;
+package com.sw.acs.shiro.token;
 
 import org.apache.shiro.authc.AuthenticationToken;
 
 /**
- * @author: 周良聪
- * @date: 2020/10/24 23:26
+ * @author 周良聪
  */
 public class JwtToken implements AuthenticationToken {
-    private String token;
+    private String jwt;
 
     public JwtToken(){}
 
     public JwtToken(String token){
-        this.token = token;
+        this.jwt = token;
     }
 
     public String getToken() {
-        return token;
+        return jwt;
     }
 
     public void setToken(String token) {
-        this.token = token;
+        this.jwt = token;
     }
 
     @Override
     public Object getPrincipal() {
-        return token;
+        return jwt;
     }
 
     @Override
     public Object getCredentials() {
-        return token;
+        return jwt;
     }
 }

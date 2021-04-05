@@ -13,13 +13,14 @@ import java.util.Calendar;
  */
 public class JwtUtils {
 
+    private static final String SIGN = "a1b2c3d4e5f6g7h8i9j10k11l12m13n14o15p16q17r18s19t20u21v22w23x24y25z26!@#$%^&*()_+";
+
     /**
      * 生成签名
      * @param userName 用户名
-     * @param secret 用户的密码
      * @return token
      */
-    public static String sign(String userName, String secret){
+    public static String sign(String userName){
         Calendar instance = Calendar.getInstance();
         //设置过期时间
         instance.add(Calendar.DATE,7);
@@ -29,7 +30,7 @@ public class JwtUtils {
                 .withSubject(userName)
                 .withExpiresAt(instance.getTime());
 
-        return builder.sign(Algorithm.HMAC256(secret));
+        return builder.sign(Algorithm.HMAC256(SIGN));
 
     }
 
@@ -37,15 +38,9 @@ public class JwtUtils {
      *
      * @param token token
      * @param userName 用户名
-     * @param secret 密钥
      */
-    public static boolean verify(String token,String userName, String secret){
-        try{
-            JWT.require(Algorithm.HMAC256(secret)).withClaim("userName",userName).build().verify(token);
-            return true;
-        } catch (Exception e){
-            return false;
-        }
+    public static void verify(String token,String userName){
+        JWT.require(Algorithm.HMAC256(SIGN)).withClaim("userName",userName).build().verify(token);
     }
 
     /**

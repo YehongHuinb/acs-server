@@ -93,7 +93,7 @@ public class AjaxResult extends HashMap<String, Object>
      */
     public static AjaxResult success(String msg, Object data)
     {
-        return new AjaxResult(500, msg, data);
+        return new AjaxResult(200, msg, data);
     }
 
     /**

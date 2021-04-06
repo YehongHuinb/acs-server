@@ -3,12 +3,11 @@ package com.sw.acs.shiro.realms;
 import com.sw.acs.domain.User;
 import com.sw.acs.service.UserService;
 import com.sw.acs.shiro.token.PasswordToken;
+import com.sw.acs.utils.AcsSecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
-import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -37,11 +36,11 @@ public class PasswordRealm extends AuthorizingRealm {
 
         PasswordToken passwordToken = (PasswordToken) authenticationToken;
         User user = userService.selectUserByUserName(passwordToken.getUserName());
-
         if(user == null){
             return null;
         }
-
+        String encryptPassword = AcsSecurityUtils.encryptPassword(passwordToken.getPassword(),user.getSalt());
+        passwordToken.setPassword(encryptPassword);
         return new SimpleAuthenticationInfo(user.getUserName(),user.getPassword(),getName());
     }
 

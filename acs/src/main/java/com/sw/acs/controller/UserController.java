@@ -28,7 +28,6 @@ public class UserController extends BaseController{
 
     @PostMapping("/login")
     public AjaxResult login(@RequestBody LoginBody loginBody){
-        System.out.println("登录");
         PasswordToken passwordToken = new PasswordToken(loginBody.getUserName(), loginBody.getPassword());
         Subject subject = SecurityUtils.getSubject();
         subject.login(passwordToken);

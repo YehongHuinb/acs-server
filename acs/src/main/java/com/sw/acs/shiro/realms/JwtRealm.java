@@ -1,6 +1,6 @@
 package com.sw.acs.shiro.realms;
 
-import com.sw.acs.utils.JwtUtils;
+import com.sw.acs.shiro.token.JwtToken;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -22,6 +22,9 @@ public class JwtRealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
+        if (!(authenticationToken instanceof JwtToken)) {
+            return null;
+        }
         //将认证操作交给密码匹配器完成
         return new SimpleAuthenticationInfo(authenticationToken.getPrincipal(),authenticationToken.getCredentials(),getName());
     }

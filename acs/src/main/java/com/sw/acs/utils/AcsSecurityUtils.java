@@ -1,12 +1,14 @@
 package com.sw.acs.utils;
 
+import org.apache.shiro.crypto.hash.Md5Hash;
+
 import java.util.Random;
 
 /**
- * @author: 周良聪
- * @date: 2020/10/24 22:27
+ * @author 周良聪
  */
-public class SaltUtils {
+public class AcsSecurityUtils {
+
     public static String getSalt(int n){
         char[] chars = "a1b2c3d4e5f6g7h8i9j10k11l12m13n14o15p16q17r18s19t20u21v22w23x24y25z26!@#$%^&*()_+.".toCharArray();
         StringBuilder sb = new StringBuilder();
@@ -16,4 +18,10 @@ public class SaltUtils {
         }
         return sb.toString();
     }
+
+    public static String encryptPassword(String password,String salt){
+        Md5Hash md5Hash = new Md5Hash(password,salt,2);
+        return md5Hash.toString();
+    }
+
 }

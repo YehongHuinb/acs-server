@@ -13,15 +13,52 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
+    /**
+     * 通过用户ID查找用户
+     * @param id 用户id
+     * @return 结果
+     */
     User selectUserById(Integer id);
 
-    User selectUserByUserName(String account);
+    /**
+     * 通过用户名查询
+     * @param userName 用户名
+     * @return 结果
+     */
+    User selectUserByUserName(String userName);
 
+    /**
+     * 根据条件分页查询用户列表
+     * @param user 用户信息
+     * @return 结果
+     */
     List<User> selectUserList(User user);
 
+    /**
+     * 检查用户名是否唯一
+     * @param userName 用户名
+     * @return 结果
+     */
+    int checkUserNameUnique(String userName);
+
+    /**
+     * 新增用户
+     * @param user 用户信息
+     * @return 结果
+     */
     int insertUser(User user);
 
+    /**
+     * 更新用户信息
+     * @param user 用户信息
+     * @return 结果
+     */
     int updateUser(User user);
 
-    int deleteUserById(Integer userId);
+    /**
+     * 通过用户ID删除用户
+     * @param id 用户id
+     * @return 结果
+     */
+    int deleteUserById(Integer id);
 }

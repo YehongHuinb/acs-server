@@ -1,10 +1,12 @@
 package com.sw.acs.controller;
 
+import com.sw.acs.constant.UserConstant;
 import com.sw.acs.domain.AjaxResult;
-import com.sw.acs.shiro.token.JwtToken;
+import com.sw.acs.domain.User;
 import com.sw.acs.domain.LoginBody;
 import com.sw.acs.service.UserService;
 import com.sw.acs.shiro.token.PasswordToken;
+import com.sw.acs.utils.AcsSecurityUtils;
 import com.sw.acs.utils.JwtUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -14,14 +16,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.sound.midi.Soundbank;
 
 /**
  * @author 周良聪
  */
 @RestController
 @RequestMapping("/api/user")
-public class UserController {
+public class UserController extends BaseController{
     @Autowired
     private UserService userService;
 
@@ -33,6 +34,17 @@ public class UserController {
         subject.login(passwordToken);
         String token = JwtUtils.sign(loginBody.getUserName());
         return AjaxResult.success(token);
+    }
+
+    @PostMapping("/register")
+    public AjaxResult register(@RequestBody User user){
+        if (UserConstant.NOT_UNIQUE.equals(userService.checkUserNameUnique(user.getUserName()))){
+            return AjaxResult.error("用户名已存在！");
+        }
+        String salt = AcsSecurityUtils.getSalt(12);
+        user.setSalt(salt);
+        user.setPassword(AcsSecurityUtils.encryptPassword(user.getPassword(),salt));
+        return toAjax(userService.insertUser(user));
     }
 
 }

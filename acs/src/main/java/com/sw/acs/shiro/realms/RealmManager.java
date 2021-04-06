@@ -39,6 +39,10 @@ public class RealmManager {
         passwordRealm.setUserService(userService);
         passwordRealm.setCredentialsMatcher(passwordMatcher);
         passwordRealm.setAuthenticationTokenClass(PasswordToken.class);
+        passwordRealm.setCacheManager(ehCacheManager);
+        passwordRealm.setCachingEnabled(true);
+        passwordRealm.setAuthenticationCachingEnabled(true);
+        passwordRealm.setAuthorizationCachingEnabled(true);
         realms.add(passwordRealm);
 
         JwtRealm jwtRealm = new JwtRealm();

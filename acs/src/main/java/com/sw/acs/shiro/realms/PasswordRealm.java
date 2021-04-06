@@ -8,6 +8,9 @@ import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class PasswordRealm extends AuthorizingRealm {
+    private static Logger logger = LoggerFactory.getLogger(PasswordRealm.class);
 
     private UserService userService;
 
@@ -39,9 +43,7 @@ public class PasswordRealm extends AuthorizingRealm {
         if(user == null){
             return null;
         }
-        String encryptPassword = AcsSecurityUtils.encryptPassword(passwordToken.getPassword(),user.getSalt());
-        passwordToken.setPassword(encryptPassword);
-        return new SimpleAuthenticationInfo(user.getUserName(),user.getPassword(),getName());
+        return new SimpleAuthenticationInfo(user.getUserName(),user.getPassword(), ByteSource.Util.bytes(user.getSalt()),getName());
     }
 
     public void setUserService(UserService userService) {

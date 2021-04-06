@@ -28,11 +28,13 @@ public class UserController extends BaseController{
 
     @PostMapping("/login")
     public AjaxResult login(@RequestBody LoginBody loginBody){
+        AjaxResult result = AjaxResult.success();
         PasswordToken passwordToken = new PasswordToken(loginBody.getUserName(), loginBody.getPassword());
         Subject subject = SecurityUtils.getSubject();
         subject.login(passwordToken);
         String token = JwtUtils.sign(loginBody.getUserName());
-        return AjaxResult.success(token);
+        result.put("Authorization",token);
+        return result;
     }
 
     @PostMapping("/register")

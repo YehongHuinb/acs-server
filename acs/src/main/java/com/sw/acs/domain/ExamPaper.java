@@ -1,5 +1,6 @@
 package com.sw.acs.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -12,6 +13,17 @@ public class ExamPaper {
     private Date createDate;
     private Integer teacherId;
     private Integer classesId;
+
+    public ArrayList<Integer> getScores() {
+        return scores;
+    }
+
+    public void setScores(ArrayList<Integer> scores) {
+        this.scores = scores;
+    }
+
+    private ArrayList<Integer> scores;
+    private ArrayList<Question> questions;
 
     public Integer getId() {
         return id;
@@ -53,14 +65,24 @@ public class ExamPaper {
         this.classesId = classesId;
     }
 
+    public ArrayList<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(ArrayList<Question> questions) {
+        this.questions = questions;
+    }
+
     @Override
     public String toString() {
-        return "examPaper{" +
+        return "ExamPaper{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", createDate=" + createDate +
                 ", teacherId=" + teacherId +
                 ", classesId=" + classesId +
+                ", scores=" + scores +
+                ", questions=" + questions +
                 '}';
     }
 }

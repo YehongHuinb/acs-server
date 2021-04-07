@@ -2,6 +2,7 @@ package com.sw.acs.controller;
 
 import com.sw.acs.domain.AjaxResult;
 import com.sw.acs.domain.Menu;
+import com.sw.acs.domain.vo.RouterVo;
 import com.sw.acs.service.MenuService;
 import com.sw.acs.utils.AcsSecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +23,11 @@ public class MenuController extends BaseController{
     @Autowired
     private MenuService menuService;
 
-
-
-
     @GetMapping("/routers")
     public AjaxResult getRouters(HttpServletRequest request){
         Integer userId = AcsSecurityUtils.getUserId(request);
         List<Menu> menus = menuService.selectMenuTreeByUserId(userId);
-
-        return AjaxResult.success();
+        List<RouterVo> routerVoList = menuService.buildRouters(menus);
+        return AjaxResult.success(routerVoList);
     }
 }

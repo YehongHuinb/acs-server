@@ -19,7 +19,7 @@
         select count(1) from t_user where user_name = #{userName} limit 1
     </select>
 
-    <insert id="insertUser" parameterType="com.sw.acs.domain.User" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertUser" parameterType="com.sw.acs.domain.User" useGeneratedKeys="true" keyProperty="userId">
         insert into t_user(user_name,nike_name,password,telephone,sex,profile,salt)
         values (#{userName},#{nikeName},#{password},#{telephone},#{sex},#{profile},#{salt})
     </insert>

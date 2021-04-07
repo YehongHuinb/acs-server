@@ -150,7 +150,7 @@ public class MenuServiceImpl implements MenuService {
             routerVo.setMeta(new MetaVo(menu.getMenuName(), menu.getIcon(), "1".equals(menu.getIsCache())));
 
             List<Menu> childrenMenu = menu.getChildren();
-            if (!childrenMenu.isEmpty()){
+            if (childrenMenu != null && !childrenMenu.isEmpty()){
                 routerVo.setAlwaysShow(true);
                 routerVo.setRedirect("noRedirect");
                 routerVo.setChildren(buildRouters(childrenMenu));

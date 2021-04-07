@@ -32,7 +32,7 @@ public class UserController extends BaseController{
         PasswordToken passwordToken = new PasswordToken(loginBody.getUserName(), loginBody.getPassword());
         Subject subject = SecurityUtils.getSubject();
         subject.login(passwordToken);
-        String token = JwtUtils.sign(loginBody.getUserName());
+        String token = JwtUtils.sign(userService.selectUserByUserName(loginBody.getUserName()));
         result.put("Authorization",token);
         return result;
     }

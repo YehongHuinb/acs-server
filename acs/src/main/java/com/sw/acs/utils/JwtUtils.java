@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.sw.acs.domain.User;
 
 import java.util.Calendar;
 
@@ -17,17 +18,18 @@ public class JwtUtils {
 
     /**
      * 生成签名
-     * @param userName 用户名
+     * @param user 用户信息
      * @return token
      */
-    public static String sign(String userName){
+    public static String sign(User user){
         Calendar instance = Calendar.getInstance();
         //设置过期时间
         instance.add(Calendar.DATE,7);
         JWTCreator.Builder builder = JWT.create();
 
-        builder.withClaim("userName",userName)
-                .withSubject(userName)
+        builder.withClaim("userId",user.getId())
+                .withClaim("userName",user.getUserName())
+                .withSubject(user.getUserName())
                 .withExpiresAt(instance.getTime());
 
         return builder.sign(Algorithm.HMAC256(SIGN));
@@ -37,10 +39,13 @@ public class JwtUtils {
     /**
      *
      * @param token token
-     * @param userName 用户名
+     * @param user 用户信息
      */
-    public static void verify(String token,String userName){
-        JWT.require(Algorithm.HMAC256(SIGN)).withClaim("userName",userName).build().verify(token);
+    public static void verify(String token,User user){
+        JWT.require(Algorithm.HMAC256(SIGN))
+                .withClaim("userName",user.getUserName())
+                .build()
+                .verify(token);
     }
 
     /**

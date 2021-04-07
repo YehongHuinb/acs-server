@@ -1,11 +1,10 @@
 package com.sw.acs.domain;
 
 /**
- * @author: 周良聪
- * @date: 2021/3/31 20:23
+ * @author 周良聪
  */
 public class User {
-    private Integer id;
+    private Integer userId;
     private String userName;
     private String nikeName;
     private String password;
@@ -14,14 +13,12 @@ public class User {
     private String profile;
     private String salt;
 
-    public static boolean isAdmin(Long userId) { return userId != null && 1L == userId; }
-
-    public Integer getId() {
-        return id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {
@@ -83,7 +80,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "userId=" + userId +
                 ", userName='" + userName + '\'' +
                 ", nikeName='" + nikeName + '\'' +
                 ", password='" + password + '\'' +

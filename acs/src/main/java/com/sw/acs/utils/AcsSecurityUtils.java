@@ -29,7 +29,7 @@ public class AcsSecurityUtils {
 
     public static Integer getUserId(HttpServletRequest request){
         String token = request.getHeader("Authorization");
-        return Integer.parseInt(JwtUtils.parseToken(token,"userId"));
+        return JwtUtils.getUserId(token);
     }
 
 }

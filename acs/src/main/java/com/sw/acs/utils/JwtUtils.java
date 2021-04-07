@@ -3,6 +3,7 @@ package com.sw.acs.utils;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.sw.acs.domain.User;
 
@@ -27,7 +28,7 @@ public class JwtUtils {
         instance.add(Calendar.DATE,7);
         JWTCreator.Builder builder = JWT.create();
 
-        builder.withClaim("userId",user.getId())
+        builder.withClaim("userId",user.getUserId())
                 .withClaim("userName",user.getUserName())
                 .withSubject(user.getUserName())
                 .withExpiresAt(instance.getTime());
@@ -43,6 +44,7 @@ public class JwtUtils {
      */
     public static void verify(String token,User user){
         JWT.require(Algorithm.HMAC256(SIGN))
+                .withClaim("userId",user.getUserId())
                 .withClaim("userName",user.getUserName())
                 .build()
                 .verify(token);
@@ -58,6 +60,17 @@ public class JwtUtils {
         DecodedJWT jwt = JWT.decode(token);
         return jwt.getClaim(claim).asString();
     }
+
+    public static Integer getUserId(String token){
+        DecodedJWT jwt = JWT.decode(token);
+        return jwt.getClaim("userId").asInt();
+    }
+
+    public static String getUserName(String token){
+        DecodedJWT jwt = JWT.decode(token);
+        return jwt.getClaim("userName").asString();
+    }
+
 
     /**
      * 判断token是否过期

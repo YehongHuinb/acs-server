@@ -17,7 +17,7 @@ import java.util.List;
  * @author 周良聪
  */
 @RestController
-@RequestMapping("/menu")
+@RequestMapping("/api/menu")
 public class MenuController extends BaseController{
 
     @Autowired

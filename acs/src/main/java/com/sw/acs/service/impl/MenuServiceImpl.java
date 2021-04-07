@@ -32,7 +32,7 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public List<Menu> selectMenuTreeByUserId(Integer userId) {
         List<Menu> menus = menuMapper.selectMenuTreeByUserId(userId);
-        return getChildrenMenu(menus,0);
+        return buildMenuTree(menus);
     }
 
     /**

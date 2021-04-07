@@ -99,7 +99,7 @@ public class AjaxResult extends HashMap<String, Object>
     /**
      * 返回错误消息
      *
-     * @return
+     * @return 错误消息
      */
     public static AjaxResult error()
     {

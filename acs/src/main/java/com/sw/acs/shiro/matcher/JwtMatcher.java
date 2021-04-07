@@ -17,7 +17,8 @@ public class JwtMatcher implements CredentialsMatcher {
     public boolean doCredentialsMatch(AuthenticationToken authenticationToken, AuthenticationInfo authenticationInfo) {
         String jwt = (String)authenticationToken.getCredentials();
         User user = new User();
-        user.setId(Integer.parseInt(JwtUtils.parseToken(jwt,"userId")));
+        Integer id = Integer.parseInt(JwtUtils.parseToken(jwt,"userId"));
+        user.setUserId(Integer.parseInt(JwtUtils.parseToken(jwt,"userId")));
         user.setUserName(JwtUtils.parseToken(jwt,"userName"));
         try{
             JwtUtils.verify(jwt,user);

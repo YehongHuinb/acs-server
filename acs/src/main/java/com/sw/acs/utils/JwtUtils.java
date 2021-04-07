@@ -27,7 +27,7 @@ public class JwtUtils {
         instance.add(Calendar.DATE,7);
         JWTCreator.Builder builder = JWT.create();
 
-        builder.withClaim("userId",user.getId())
+        builder.withClaim("userId",user.getUserId())
                 .withClaim("userName",user.getUserName())
                 .withSubject(user.getUserName())
                 .withExpiresAt(instance.getTime());
@@ -43,6 +43,7 @@ public class JwtUtils {
      */
     public static void verify(String token,User user){
         JWT.require(Algorithm.HMAC256(SIGN))
+                .withClaim("userId",user.getUserId())
                 .withClaim("userName",user.getUserName())
                 .build()
                 .verify(token);

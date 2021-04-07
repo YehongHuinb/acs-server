@@ -1,7 +1,10 @@
 package com.sw.acs.utils;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
+import org.apache.shiro.subject.Subject;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Random;
 
 /**
@@ -22,6 +25,11 @@ public class AcsSecurityUtils {
     public static String encryptPassword(String password,String salt){
         Md5Hash md5Hash = new Md5Hash(password,salt,2);
         return md5Hash.toString();
+    }
+
+    public static Integer getUserId(HttpServletRequest request){
+        String token = request.getHeader("Authorization");
+        return Integer.parseInt(JwtUtils.parseToken(token,"userId"));
     }
 
 }

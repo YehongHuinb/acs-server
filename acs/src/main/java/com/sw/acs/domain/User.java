@@ -14,6 +14,8 @@ public class User {
     private String profile;
     private String salt;
 
+    public static boolean isAdmin(Long userId) { return userId != null && 1L == userId; }
+
     public Integer getId() {
         return id;
     }

@@ -58,4 +58,9 @@ public class ClassesServiceImpl implements ClassesService {
     public List<Classes> getClassesList() {
         return classesMapper.getClassesList();
     }
+
+    @Override
+    public List<Classes> getClassesListByTeacherId(Integer teacherId) {
+        return null;
+    }
 }

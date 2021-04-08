@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sw.acs.mapper.UserMapper">
     <select id="selectUserById" parameterType="Integer" resultType="com.sw.acs.domain.User">
-        select user_id,user_name,nike_name,password,telephone,sex,profile,salt from t_user
+        select user_id,user_name,nike_name,password,telephone,sex,avatar,salt from t_user
         where user_id=#{id}
     </select>
     
     <select id="selectUserByUserName" parameterType="String" resultType="com.sw.acs.domain.User">
-        select user_id,user_name,nike_name,password,telephone,sex,profile,salt from t_user
+        select user_id,user_name,nike_name,password,telephone,sex,avatar,salt from t_user
         where user_name = #{userName}
     </select>
 
@@ -20,8 +20,8 @@
     </select>
 
     <insert id="insertUser" parameterType="com.sw.acs.domain.User" useGeneratedKeys="true" keyProperty="userId">
-        insert into t_user(user_name,nike_name,password,telephone,sex,profile,salt)
-        values (#{userName},#{nikeName},#{password},#{telephone},#{sex},#{profile},#{salt})
+        insert into t_user(user_name,nike_name,password,telephone,sex,avatar,salt)
+        values (#{userName},#{nikeName},#{password},#{telephone},#{sex},#{avatar},#{salt})
     </insert>
     
     <update id="updateUser" parameterType="com.sw.acs.domain.User">
@@ -31,7 +31,7 @@
             <if test="nikeName != null">nike_name = #{nikeName}</if>
             <if test="password != null">password = #{password}</if>
             <if test="sex != null">sex = #{sex}</if>
-            <if test="profile != null">profile = #{profile}</if>
+            <if test="avatar != null">avatar = #{avatar}</if>
         </set>
     </update>
 

@@ -8,8 +8,8 @@ import java.util.Date;
  * @time: 2021/4/3 17:42
  */
 public class ExamPaper {
-    private Integer id;
-    private String name;
+    private Integer paperId;
+    private String paperName;
     private Date createDate;
     private Integer teacherId;
     private Integer classesId;
@@ -25,20 +25,20 @@ public class ExamPaper {
     private ArrayList<Integer> scores;
     private ArrayList<Question> questions;
 
-    public Integer getId() {
-        return id;
+    public Integer getPaperId() {
+        return paperId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setPaperId(Integer paperId) {
+        this.paperId = paperId;
     }
 
-    public String getName() {
-        return name;
+    public String getPaperName() {
+        return paperName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPaperName(String paperName) {
+        this.paperName = paperName;
     }
 
     public Date getCreateDate() {
@@ -76,8 +76,8 @@ public class ExamPaper {
     @Override
     public String toString() {
         return "ExamPaper{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "paperId=" + paperId +
+                ", paperName='" + paperName + '\'' +
                 ", createDate=" + createDate +
                 ", teacherId=" + teacherId +
                 ", classesId=" + classesId +

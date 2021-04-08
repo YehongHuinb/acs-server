@@ -37,4 +37,11 @@ public interface ClassesService {
      * @return 结果
      */
     List<Classes> getClassesList();
+
+    /**
+     * 通过老师id查询
+     * @param teacherId 班级名
+     * @return 结果
+     */
+    List<Classes> getClassesListByTeacherId( Integer teacherId);
 }

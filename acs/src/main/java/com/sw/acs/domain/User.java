@@ -10,7 +10,7 @@ public class User {
     private String password;
     private String telephone;
     private String sex;
-    private String profile;
+    private String avatar;
     private String salt;
 
     public Integer getUserId() {
@@ -61,12 +61,12 @@ public class User {
         this.sex = sex;
     }
 
-    public String getProfile() {
-        return profile;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setProfile(String profile) {
-        this.profile = profile;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getSalt() {
@@ -86,7 +86,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", telephone='" + telephone + '\'' +
                 ", sex='" + sex + '\'' +
-                ", profile='" + profile + '\'' +
+                ", avatar='" + avatar + '\'' +
                 ", salt='" + salt + '\'' +
                 '}';
     }

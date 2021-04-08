@@ -1,5 +1,7 @@
 package com.sw.acs.domain;
 
+import java.util.ArrayList;
+
 /**
  * @author: ZZP
  * @time: 2021/4/3 17:39
@@ -9,6 +11,16 @@ public class Classes {
     private Integer number;
     private Integer teacherId;
     private String classesName;
+
+    private ArrayList<User> students;
+
+    public ArrayList<User> getStudents() {
+        return students;
+    }
+
+    public void setStudents(ArrayList<User> students) {
+        this.students = students;
+    }
 
     public Integer getClassesId() {
         return classesId;

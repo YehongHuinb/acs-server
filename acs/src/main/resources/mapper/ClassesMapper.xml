@@ -10,6 +10,11 @@
         select classes_id,classes_name,number,teacher_id from classes
     </select>
 
+    <select id="getClassesListByTeacherId" resultType="com.sw.acs.domain.Classes">
+        select classes_id,classes_name,number from classes
+        where  teacher_id = #{teacherId}
+    </select>
+
     <insert id="insertClasses" parameterType="com.sw.acs.domain.Classes" useGeneratedKeys="true" keyProperty="classesId">
         insert into classes(classes_name, number, teacher_id)
         values (#{classesName},#{number},#{teacherId})

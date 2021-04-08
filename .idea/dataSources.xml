@@ -4,11 +4,17 @@
     <data-source source="LOCAL" name="acs@localhost" uuid="42d5e554-ebb6-42ff-8822-b0caa1e51daf">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/acs</jdbc-url>
       <driver-properties>
         <property name="serverTimezone" value="UTC" />
       </driver-properties>
+    </data-source>
+    <data-source source="LOCAL" name="acs@localhost [2]" uuid="1d4cb344-467f-4f12-a24d-9d62a4eb277a">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/acs</jdbc-url>
     </data-source>
   </component>
 </project>

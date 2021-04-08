@@ -5,17 +5,17 @@ package com.sw.acs.domain;
  * @time: 2021/4/3 17:39
  */
 public class Classes {
-    private Integer id;
+    private Integer classesId;
     private Integer number;
     private Integer teacherId;
-    private String name;
+    private String classesName;
 
-    public Integer getId() {
-        return id;
+    public Integer getClassesId() {
+        return classesId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setClassesId(Integer classesId) {
+        this.classesId = classesId;
     }
 
     public Integer getNumber() {
@@ -34,21 +34,21 @@ public class Classes {
         this.teacherId = teacherId;
     }
 
-    public String getName() {
-        return name;
+    public String getClassesName() {
+        return classesName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setClassesName(String classesName) {
+        this.classesName = classesName;
     }
 
     @Override
     public String toString() {
         return "Classes{" +
-                "id=" + id +
+                "classesId=" + classesId +
                 ", number=" + number +
                 ", teacherId=" + teacherId +
-                ", name='" + name + '\'' +
+                ", classesName='" + classesName + '\'' +
                 '}';
     }
 }

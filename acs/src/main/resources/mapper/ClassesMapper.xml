@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sw.acs.mapper.ClassesMapper">
+    <select id="selectClassesByClassesName" parameterType="String" resultType="com.sw.acs.domain.Classes">
+        select classes_id,classes_name,number,teacher_id from classes
+        where classes_name = #{classesName}
+    </select>
+
+    <select id="getClassesList" resultType="com.sw.acs.domain.Classes">
+        select classes_id,classes_name,number,teacher_id from classes
+    </select>
+
+    <insert id="insertClasses" parameterType="com.sw.acs.domain.Classes" useGeneratedKeys="true" keyProperty="classesId">
+        insert into classes(classes_name, number, teacher_id)
+        values (#{classesName},#{number},#{teacherId})
+    </insert>
+
+    <delete id="deleteClassesByClassesId">
+        delete  from  classes where classes_id =#{classesId}
+    </delete>
+</mapper>

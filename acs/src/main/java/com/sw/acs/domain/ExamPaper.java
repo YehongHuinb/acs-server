@@ -11,7 +11,7 @@ public class ExamPaper {
     private Integer paperId;
     private String paperName;
     private Date createDate;
-    private Integer teacherId;
+    private Integer userId;
     private Integer classesId;
 
     public ArrayList<Integer> getScores() {
@@ -49,12 +49,12 @@ public class ExamPaper {
         this.createDate = createDate;
     }
 
-    public Integer getTeacherId() {
-        return teacherId;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setTeacherId(Integer teacherId) {
-        this.teacherId = teacherId;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Integer getClassesId() {
@@ -79,7 +79,7 @@ public class ExamPaper {
                 "paperId=" + paperId +
                 ", paperName='" + paperName + '\'' +
                 ", createDate=" + createDate +
-                ", teacherId=" + teacherId +
+                ", userId=" + userId +
                 ", classesId=" + classesId +
                 ", scores=" + scores +
                 ", questions=" + questions +

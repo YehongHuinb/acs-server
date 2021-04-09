@@ -11,6 +11,7 @@ public class Classes {
     private Integer number;
     private Integer teacherId;
     private String classesName;
+    private String teacherName;
 
     private ArrayList<User> students;
 
@@ -54,6 +55,14 @@ public class Classes {
         this.classesName = classesName;
     }
 
+    public String getTeacherName() {
+        return teacherName;
+    }
+
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
+    }
+
     @Override
     public String toString() {
         return "Classes{" +
@@ -61,6 +70,8 @@ public class Classes {
                 ", number=" + number +
                 ", teacherId=" + teacherId +
                 ", classesName='" + classesName + '\'' +
+                ", teacherName='" + teacherName + '\'' +
+                ", students=" + students +
                 '}';
     }
 }

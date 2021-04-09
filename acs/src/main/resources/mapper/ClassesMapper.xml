@@ -7,10 +7,10 @@
     </select>
 
     <select id="getClassesList" resultType="com.sw.acs.domain.Classes">
-        select classes_id,classes_name,number,teacher_id from classes
+        select * from teacherclass
     </select>
 
-    <select id="getClassesListByTeacherId" resultType="com.sw.acs.domain.Classes">
+    <select id="getClassesListByTeacherId" resultType="com.sw.acs.domain.Classes" parameterType="Integer">
         select classes_id,classes_name,number from classes
         where  teacher_id = #{teacherId}
     </select>

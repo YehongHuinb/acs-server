@@ -42,5 +42,5 @@ public interface ClassesMapper {
      * @param teacherId 班级名
      * @return 结果
      */
-    List<Classes> getClassesListByTeacherId( Integer teacherId);
+    List<Classes> getClassesListByTeacherId(Integer teacherId);
 }

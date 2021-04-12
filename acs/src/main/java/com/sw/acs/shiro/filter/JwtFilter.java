@@ -22,7 +22,6 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
 
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
-        logger.info("执行isAccessAllowed方法");
         try {
             executeLogin(request, response);
             return true;
@@ -33,7 +32,6 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
 
     @Override
     protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {
-        logger.info("执行executeLogin方法");
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         String token = httpServletRequest.getHeader("Authorization");
         // 判断token是否存在
@@ -51,7 +49,6 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
 
     @Override
     protected boolean preHandle(ServletRequest request, ServletResponse response) throws Exception {
-        logger.info("执行preHandle方法");
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         httpServletResponse.setHeader("Access-control-Allow-Origin", httpServletRequest.getHeader("Origin"));

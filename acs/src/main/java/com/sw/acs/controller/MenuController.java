@@ -17,15 +17,15 @@ import java.util.List;
  * @author 周良聪
  */
 @RestController
-@RequestMapping("/api/menu")
+@RequestMapping("/menu")
 public class MenuController extends BaseController{
 
     @Autowired
     private MenuService menuService;
 
-    @GetMapping("/routers")
-    public AjaxResult getRouters(HttpServletRequest request){
-        Integer userId = AcsSecurityUtils.getUserId(request);
+    @GetMapping("/routes")
+    public AjaxResult getRouters(){
+        Integer userId = AcsSecurityUtils.getUserId();
         List<Menu> menus = menuService.selectMenuTreeByUserId(userId);
         List<RouterVo> routerVoList = menuService.buildRouters(menus);
         return AjaxResult.success(routerVoList);

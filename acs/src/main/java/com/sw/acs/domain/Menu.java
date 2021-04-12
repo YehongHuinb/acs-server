@@ -1,25 +1,55 @@
 package com.sw.acs.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author 周良聪
  */
 public class Menu {
-    private static final long serialVersionUID = 1L;
 
     private Integer menuId;
+
+    /** 菜单名称 */
     private String menuName;
+
+    /** 父菜单名称 */
     private String parentName;
+
+    /** 父菜单ID */
     private Integer parentId;
+
+    /** 显示顺序 */
     private String orderNum;
+
+    /** 路由地址 */
     private String path;
+
+    /** 组件路径 */
     private String component;
+
+    /** 是否为外链（0是 1否） */
+    private String isFrame;
+
+    /** 是否缓存（0缓存 1不缓存） */
     private String isCache;
+
+    /** 类型（M目录 C菜单 F按钮） */
+    private String menuType;
+
+    /** 显示状态（0显示 1隐藏） */
     private String visible;
+
+    /** 菜单状态（0显示 1隐藏） */
     private String status;
-    private String permissions;
+
+    /** 权限字符串 */
+    private String permission;
+
+    /** 菜单图标 */
     private String icon;
+
+    /** 子菜单 */
     private List<Menu> children;
 
     public Integer getMenuId() {
@@ -78,12 +108,28 @@ public class Menu {
         this.component = component;
     }
 
+    public String getIsFrame() {
+        return isFrame;
+    }
+
+    public void setIsFrame(String isFrame) {
+        this.isFrame = isFrame;
+    }
+
     public String getIsCache() {
         return isCache;
     }
 
     public void setIsCache(String isCache) {
         this.isCache = isCache;
+    }
+
+    public String getMenuType() {
+        return menuType;
+    }
+
+    public void setMenuType(String menuType) {
+        this.menuType = menuType;
     }
 
     public String getVisible() {
@@ -102,12 +148,12 @@ public class Menu {
         this.status = status;
     }
 
-    public String getPermissions() {
-        return permissions;
+    public String getPermission() {
+        return permission;
     }
 
-    public void setPermissions(String permissions) {
-        this.permissions = permissions;
+    public void setPermission(String permission) {
+        this.permission = permission;
     }
 
     public String getIcon() {
@@ -136,10 +182,12 @@ public class Menu {
                 ", orderNum='" + orderNum + '\'' +
                 ", path='" + path + '\'' +
                 ", component='" + component + '\'' +
+                ", isFrame='" + isFrame + '\'' +
                 ", isCache='" + isCache + '\'' +
+                ", menuType='" + menuType + '\'' +
                 ", visible='" + visible + '\'' +
                 ", status='" + status + '\'' +
-                ", permissions='" + permissions + '\'' +
+                ", permission='" + permission + '\'' +
                 ", icon='" + icon + '\'' +
                 ", children=" + children +
                 '}';

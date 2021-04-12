@@ -15,14 +15,14 @@ import javax.servlet.http.HttpServletRequest;
  * @time: 2021/4/7 20:43
  */
 @RestController
-@RequestMapping("/api/classes")
+@RequestMapping("/classes")
 public class ClassesController extends BaseController {
     @Autowired
     private ClassesService classesService;
 
     @PostMapping("/addClasses")
-    public AjaxResult addClasses(@RequestBody Classes classes , HttpServletRequest request){
-        Integer userId = AcsSecurityUtils.getUserId(request);
+    public AjaxResult addClasses(@RequestBody Classes classes){
+        Integer userId = AcsSecurityUtils.getUserId();
         classes.setTeacherId(userId);
         return toAjax(classesService.insertClasses(classes));
     }

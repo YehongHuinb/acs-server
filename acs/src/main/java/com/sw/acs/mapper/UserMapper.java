@@ -57,8 +57,15 @@ public interface UserMapper {
 
     /**
      * 通过用户ID删除用户
-     * @param id 用户id
+     * @param userId 用户id
      * @return 结果
      */
-    int deleteUserById(Integer id);
+    int deleteUserById(Integer userId);
+
+    /**
+     * 批量删除用户
+     * @param ids 用户id列表
+     * @return 结果
+     */
+    int deleteUserByIds(List<Integer> ids);
 }

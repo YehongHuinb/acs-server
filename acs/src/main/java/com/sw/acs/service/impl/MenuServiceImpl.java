@@ -1,10 +1,12 @@
 package com.sw.acs.service.impl;
 
+import com.sw.acs.constant.UserConstants;
 import com.sw.acs.domain.Menu;
 import com.sw.acs.domain.vo.MetaVo;
 import com.sw.acs.domain.vo.RouterVo;
 import com.sw.acs.mapper.MenuMapper;
 import com.sw.acs.service.MenuService;
+import com.sw.acs.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +22,6 @@ public class MenuServiceImpl implements MenuService {
 
     @Autowired
     private MenuMapper menuMapper;
-
-
 
     /**
      * 根据用户查询菜单树
@@ -123,6 +123,89 @@ public class MenuServiceImpl implements MenuService {
     }
 
     /**
+     * 获取路由名称
+     *
+     * @param menu 菜单信息
+     * @return 路由名称
+     */
+    public String getRouteName(Menu menu)
+    {
+        String routerName = StringUtils.capitalize(menu.getPath());
+        // 非外链并且是一级目录（类型为目录）
+        if (isMenuFrame(menu))
+        {
+            routerName = StringUtils.EMPTY;
+        }
+        return routerName;
+    }
+
+    /**
+     * 获取路由地址
+     *
+     * @param menu 菜单信息
+     * @return 路由地址
+     */
+    public String getRouterPath(Menu menu)
+    {
+        String routerPath = menu.getPath();
+        // 非外链并且是一级目录（类型为目录）
+        if (0 == menu.getParentId() && UserConstants.TYPE_DIR.equals(menu.getMenuType())
+                && UserConstants.NO_FRAME.equals(menu.getIsFrame()))
+        {
+            routerPath = "/" + menu.getPath();
+        }
+        // 非外链并且是一级目录（类型为菜单）
+        else if (isMenuFrame(menu))
+        {
+            routerPath = "/";
+        }
+        return routerPath;
+    }
+
+    /**
+     * 获取组件信息
+     *
+     * @param menu 菜单信息
+     * @return 组件信息
+     */
+    public String getComponent(Menu menu)
+    {
+        String component = UserConstants.LAYOUT;
+        if (StringUtils.isNotEmpty(menu.getComponent()) && !isMenuFrame(menu))
+        {
+            component = menu.getComponent();
+        }
+        else if (StringUtils.isEmpty(menu.getComponent()) && isParentView(menu))
+        {
+            component = UserConstants.PARENT_VIEW;
+        }
+        return component;
+    }
+
+    /**
+     * 是否为菜单内部跳转
+     *
+     * @param menu 菜单信息
+     * @return 结果
+     */
+    public boolean isMenuFrame(Menu menu)
+    {
+        return menu.getParentId() == 0 && UserConstants.TYPE_MENU.equals(menu.getMenuType())
+                && menu.getIsFrame().equals(UserConstants.NO_FRAME);
+    }
+
+    /**
+     * 是否为parent_view组件
+     *
+     * @param menu 菜单信息
+     * @return 结果
+     */
+    public boolean isParentView(Menu menu)
+    {
+        return menu.getParentId() != 0 && UserConstants.TYPE_DIR.equals(menu.getMenuType());
+    }
+
+    /**
      * 判断是否有子节点
      * @param list 菜单列表
      * @param menu 菜单
@@ -144,16 +227,25 @@ public class MenuServiceImpl implements MenuService {
         List<RouterVo> routerVoList = new ArrayList<>();
         for (Menu menu : menus){
             RouterVo routerVo = new RouterVo();
-            routerVo.setName(menu.getMenuName());
-            routerVo.setPath(menu.getPath());
-            routerVo.setComponent(menu.getComponent());
+            routerVo.setName(getRouteName(menu));
+            routerVo.setPath(getRouterPath(menu));
+            routerVo.setComponent(getComponent(menu));
             routerVo.setMeta(new MetaVo(menu.getMenuName(), menu.getIcon(), "1".equals(menu.getIsCache())));
 
             List<Menu> childrenMenu = menu.getChildren();
-            if (childrenMenu != null && !childrenMenu.isEmpty()){
+            if (childrenMenu != null && !childrenMenu.isEmpty() && UserConstants.TYPE_DIR.equals(menu.getMenuType())){
                 routerVo.setAlwaysShow(true);
                 routerVo.setRedirect("noRedirect");
                 routerVo.setChildren(buildRouters(childrenMenu));
+            } else if (isMenuFrame(menu)) {
+                List<RouterVo> childrenList = new ArrayList<RouterVo>();
+                RouterVo children = new RouterVo();
+                children.setPath(menu.getPath());
+                children.setComponent(menu.getComponent());
+                children.setName(StringUtils.capitalize(menu.getPath()));
+                children.setMeta(new MetaVo(menu.getMenuName(), menu.getIcon(), StringUtils.equals("1", menu.getIsCache())));
+                childrenList.add(children);
+                routerVo.setChildren(childrenList);
             }
             routerVoList.add(routerVo);
         }

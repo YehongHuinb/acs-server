@@ -17,14 +17,14 @@ import javax.servlet.http.HttpServletRequest;
  * @time: 2021/4/8 20:42
  */
 @RestController
-@RequestMapping("/api/examPaper")
+@RequestMapping("/examPaper")
 public class ExamPaperController extends BaseController {
     @Autowired
     private ExamPaperService examPaperService;
 
     @PostMapping("/addExamPaper")
-    public AjaxResult addExamPaper(@RequestBody ExamPaper examPaper, HttpServletRequest request){
-        Integer userId = AcsSecurityUtils.getUserId(request);
+    public AjaxResult addExamPaper(@RequestBody ExamPaper examPaper){
+        Integer userId = AcsSecurityUtils.getUserId();
         examPaper.setUserId(userId);
         return toAjax(examPaperService.insertExamPaper(examPaper));
     }

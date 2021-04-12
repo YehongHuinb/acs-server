@@ -8,12 +8,12 @@
     </sql>
 
     <select id="selectMenuTreeByUserId" parameterType="Integer" resultType="com.sw.acs.domain.Menu">
-        select distinct m.menu_id, m.menu_name, m.parent_id, m.order_number, m.path, m.component, m.is_cache, m.visible, m.status, ifnull(m.permission,'') as permission, m.icon
+        select m.menu_id, m.parent_id, m.menu_name, m.path, m.component, m.visible, m.status, ifnull(m.permission,'') as permission, m.is_frame, m.is_cache, m.menu_type, m.icon, m.order_num, m.create_time
 		from t_menu m
 		left join role_menu rm on m.menu_id = rm.menu_id
 		left join user_role ur on rm.role_id = ur.role_id
 		left join t_role r on ur.role_id = r.role_id
 		where ur.user_id = #{userId}
-		order by m.parent_id, m.order_number
+		order by m.parent_id, m.order_num
     </select>
 </mapper>

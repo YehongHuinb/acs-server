@@ -5,6 +5,7 @@ import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.subject.Subject;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -27,9 +28,10 @@ public class AcsSecurityUtils {
         return md5Hash.toString();
     }
 
-    public static Integer getUserId(HttpServletRequest request){
-        String token = request.getHeader("Authorization");
+    public static Integer getUserId(){
+        String token = Objects.requireNonNull(ServletUtils.getRequest()).getHeader("Authorization");
         return JwtUtils.getUserId(token);
     }
+
 
 }

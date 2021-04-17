@@ -1,27 +1,26 @@
 package com.sw.acs.domain;
 
-import java.util.ArrayList;
+
+
 
 /**
- * @author: ZZP
- * @time: 2021/4/3 17:39
+ * @author 周良聪
  */
+
 public class Classes {
+
     private Integer classesId;
-    private Integer number;
-    private Integer teacherId;
+
     private String classesName;
-    private String teacherName;
 
-    private ArrayList<User> students;
+    private Integer creatorId;
 
-    public ArrayList<User> getStudents() {
-        return students;
-    }
+    private String creatorName;
 
-    public void setStudents(ArrayList<User> students) {
-        this.students = students;
-    }
+    private String introduction;
+
+    private Integer peopleNum;
+
 
     public Integer getClassesId() {
         return classesId;
@@ -29,22 +28,6 @@ public class Classes {
 
     public void setClassesId(Integer classesId) {
         this.classesId = classesId;
-    }
-
-    public Integer getNumber() {
-        return number;
-    }
-
-    public void setNumber(Integer number) {
-        this.number = number;
-    }
-
-    public Integer getTeacherId() {
-        return teacherId;
-    }
-
-    public void setTeacherId(Integer teacherId) {
-        this.teacherId = teacherId;
     }
 
     public String getClassesName() {
@@ -55,23 +38,48 @@ public class Classes {
         this.classesName = classesName;
     }
 
-    public String getTeacherName() {
-        return teacherName;
+    public Integer getCreatorId() {
+        return creatorId;
     }
 
-    public void setTeacherName(String teacherName) {
-        this.teacherName = teacherName;
+    public void setCreatorId(Integer creatorId) {
+        this.creatorId = creatorId;
     }
+
+    public String getCreatorName() {
+        return creatorName;
+    }
+
+    public void setCreatorName(String creatorName) {
+        this.creatorName = creatorName;
+    }
+
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
+
+    public Integer getPeopleNum() {
+        return peopleNum;
+    }
+
+    public void setPeopleNum(Integer peopleNum) {
+        this.peopleNum = peopleNum;
+    }
+
 
     @Override
     public String toString() {
         return "Classes{" +
                 "classesId=" + classesId +
-                ", number=" + number +
-                ", teacherId=" + teacherId +
                 ", classesName='" + classesName + '\'' +
-                ", teacherName='" + teacherName + '\'' +
-                ", students=" + students +
+                ", creatorId=" + creatorId +
+                ", creatorName='" + creatorName + '\'' +
+                ", introduction='" + introduction + '\'' +
+                ", peopleNum=" + peopleNum +
                 '}';
     }
 }

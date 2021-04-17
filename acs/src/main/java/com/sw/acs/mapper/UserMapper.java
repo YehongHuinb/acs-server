@@ -42,6 +42,14 @@ public interface UserMapper {
     int checkUserNameUnique(String userName);
 
     /**
+     * 校验手机号码是否唯一
+     *
+     * @param phoneNumber 手机号码
+     * @return 结果
+     */
+    User checkPhoneUnique(String phoneNumber);
+
+    /**
      * 新增用户
      * @param user 用户信息
      * @return 结果

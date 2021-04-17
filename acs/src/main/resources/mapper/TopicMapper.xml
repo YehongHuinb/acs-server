@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sw.acs.mapper.TopicMapper">
+
+    <select id="selectExamTopicListByExamId" resultType="com.sw.acs.domain.Topic">
+        select t.topic_id, t.question, t.choice, t.photo, t.topic_type, t.correct_answer, t.score, t.difficulty, t.analysis, t.create_date, t.update_date
+        from t_topic t
+        left join exam_topic et on t.topic_id = et.topic_id
+        where et.exam_id = #{examId}
+    </select>
+
+    <insert id="insertTopic" parameterType="com.sw.acs.domain.Exam" useGeneratedKeys="true" keyProperty="examId">
+        insert into t_topic(topic_id, question, choice, photo, topic_type, correct_answer, score, difficulty, analysis, create_date, update_date)
+        values(#{topicName}, #{quesstion},#{choice}, #{photo}, #{topicType}, #{correctAnswer}, #{score}, #{difficulty}, #{analysis}, #{createDate}, #{updateDate})
+    </insert>
+</mapper>

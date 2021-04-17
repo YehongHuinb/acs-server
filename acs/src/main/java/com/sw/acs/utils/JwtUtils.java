@@ -10,8 +10,7 @@ import com.sw.acs.domain.User;
 import java.util.Calendar;
 
 /**
- * @author: 周良聪
- * @date: 2020/10/23 08:38
+ * @author 周良聪
  */
 public class JwtUtils {
 

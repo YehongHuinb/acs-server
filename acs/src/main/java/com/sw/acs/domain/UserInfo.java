@@ -8,15 +8,15 @@ import java.util.List;
 public class UserInfo {
     private String userName;
     private String avatar;
-    private List<Role> roles;
+    private Role role;
 
     public UserInfo() {
     }
 
-    public UserInfo(String userName, String avatar, List<Role> roles) {
+    public UserInfo(String userName, String avatar, Role role) {
         this.userName = userName;
         this.avatar = avatar;
-        this.roles = roles;
+        this.role = role;
     }
 
     public String getUserName() {
@@ -35,12 +35,12 @@ public class UserInfo {
         this.avatar = avatar;
     }
 
-    public List<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class UserInfo {
         return "UserInfo{" +
                 "userName='" + userName + '\'' +
                 ", avatar='" + avatar + '\'' +
-                ", roles=" + roles +
+                ", role=" + role +
                 '}';
     }
 }

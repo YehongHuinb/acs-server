@@ -10,6 +10,13 @@ import java.util.List;
 public interface UserService {
 
     /**
+     * 查询用户列表
+     * @param user 用户信息
+     * @return 用户列表
+     */
+    List<User> selectUserList(User user);
+
+    /**
      * 通过用户id查询
      * @param userId 用户id
      * @return 用户信息
@@ -30,6 +37,14 @@ public interface UserService {
      * @return 结果
      */
     String checkUserNameUnique(String userName);
+
+    /**
+     * 校验手机号码是否唯一
+     *
+     * @param user 用户信息
+     * @return 结果
+     */
+    public String checkPhoneUnique(User user);
 
     /**
      * 新增用户
@@ -58,5 +73,4 @@ public interface UserService {
      * @return 结果
      */
     int deleteUserByIds(List<Integer> ids);
-
 }

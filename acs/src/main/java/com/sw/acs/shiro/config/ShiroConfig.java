@@ -51,11 +51,6 @@ public class ShiroConfig {
         return securityManager;
     }
 
-
-    /**
-     * 开启shiro注解支持
-     * @return
-     */
     @Bean
     public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
         DefaultAdvisorAutoProxyCreator autoProxyCreator = new DefaultAdvisorAutoProxyCreator();

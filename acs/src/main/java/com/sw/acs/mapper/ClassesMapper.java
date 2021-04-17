@@ -1,46 +1,48 @@
 package com.sw.acs.mapper;
 
 import com.sw.acs.domain.Classes;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+
 /**
- * @author: ZZP
- * @time: 2021/4/7 20:12
+ * @author 周良聪
  */
 public interface ClassesMapper {
     /**
-     * 通过班级名查询
-     * @param ClassesName 班级名
-     * @return 结果
+     * 通过班级信息和用户id查询
+     * @param classes 班级信息
+     * @param userId 用户id
+     * @return 班级列表
      */
-    Classes selectClassesByClassesName(String ClassesName);
+    List<Classes> selectClassesList(@Param("classes") Classes classes, @Param("userId") Integer userId);
 
     /**
-     * 新增班级
+     * 通过id查找
+     * @param classesId 班级id
+     * @return 结果
+     */
+    Classes selectClassesById(Integer classesId);
+
+    /**
+     * 插入班级
      * @param classes 班级信息
      * @return 结果
      */
     int insertClasses(Classes classes);
 
     /**
-     * 通过班级id删除班级
-     * @param classesId 班级Id
+     * 更新班级信息
+     * @param classes 班级信息
      * @return 结果
      */
-    int deleteClassesByClassesId(Integer classesId);
+    int updateClasses(Classes classes);
 
     /**
-     * 查询班级列表
-     * @param
+     * 删除班级
+     * @param classesId 班级id
      * @return 结果
      */
-    List<Classes> getClassesList();
-
-    /**
-     * 通过老师id查询
-     * @param teacherId 班级名
-     * @return 结果
-     */
-    List<Classes> getClassesListByTeacherId(Integer teacherId);
+    int deleteClasses(Integer classesId);
 }

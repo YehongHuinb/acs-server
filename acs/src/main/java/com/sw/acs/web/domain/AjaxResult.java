@@ -1,11 +1,9 @@
-package com.sw.acs.domain;
-
-import org.springframework.http.HttpStatus;
+package com.sw.acs.web.domain;
 
 import java.util.HashMap;
 
 /**
- * @author 周良聪
+ * @author rouyi
  */
 public class AjaxResult extends HashMap<String, Object>
 {

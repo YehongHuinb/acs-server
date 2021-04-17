@@ -1,47 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sw.acs.mapper.UserMapper">
+
+    <select id="selectUserList" parameterType="com.sw.acs.domain.User" resultType="com.sw.acs.domain.User">
+        select user_id,user_name, nick_name, avatar, phone_number, password, sex from t_user
+        where user_id != 0
+        <if test="userName != null and userName != ''">
+            AND user_name like concat('%', #{userName}, '%')
+        </if>
+        <if test="phoneNumber != null and phoneNumber != ''">
+            AND phone_number like concat('%', #{phoneNumber}, '%')
+        </if>
+    </select>
+
     <select id="selectUserById" parameterType="Integer" resultType="com.sw.acs.domain.User">
-        select user_id,user_name,nike_name,password,telephone,sex,avatar,salt from t_user
+        select user_id,user_name,nick_name,password,phone_number,sex,avatar,salt from t_user
         where user_id=#{id}
     </select>
     
     <select id="selectUserByUserName" parameterType="String" resultType="com.sw.acs.domain.User">
-        select user_id,user_name,nike_name,password,telephone,sex,avatar,salt from t_user
+        select user_id,user_name,nick_name,password,phone_number,sex,avatar,salt from t_user
         where user_name = #{userName}
-    </select>
-
-    <select id="selectUserList" parameterType="com.sw.acs.domain.User" resultType="com.sw.acs.domain.User">
-
     </select>
 
     <select id="checkUserNameUnique" parameterType="string" resultType="int">
         select count(1) from t_user where user_name = #{userName} limit 1
     </select>
 
+    <select id="checkPhoneUnique" parameterType="String" resultType="com.sw.acs.domain.User">
+		select user_id, phone_number from t_user where phone_number = #{phoneNumber} limit 1
+	</select>
+
     <insert id="insertUser" parameterType="com.sw.acs.domain.User" useGeneratedKeys="true" keyProperty="userId">
-        insert into t_user(user_name,nike_name,password,telephone,sex,avatar,salt)
-        values (#{userName},#{nikeName},#{password},#{telephone},#{sex},#{avatar},#{salt})
+        insert into t_user(user_name,nick_name,password,phone_number,sex,avatar,salt)
+        values (#{userName},#{nickName},#{password},#{phoneNumber},#{sex},#{avatar},#{salt})
     </insert>
     
     <update id="updateUser" parameterType="com.sw.acs.domain.User">
         update t_user
         <set>
-            <if test="password != null">password = #{password}</if>
-            <if test="nikeName != null">nike_name = #{nikeName}</if>
-            <if test="password != null">password = #{password}</if>
-            <if test="sex != null">sex = #{sex}</if>
-            <if test="avatar != null">avatar = #{avatar}</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="nickName != null">nick_name = #{nickName},</if>
+            <if test="phoneNumber != null">phone_number = #{phoneNumber},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="avatar != null">avatar = #{avatar},</if>
         </set>
+        where user_id = #{userId}
     </update>
 
     <delete id="deleteUserById" parameterType="Integer">
-        delete from t_user where id = #{userId}
+        delete from t_user where user_id = #{userId}
     </delete>
 
     <delete id="deleteUserByIds" parameterType="Integer">
         delete from t_user  where user_id in
-        <foreach collection="array" item="userId" open="(" separator="," close=")">
+        <foreach collection="list" item="userId" open="(" separator="," close=")">
             #{userId}
         </foreach>
     </delete>

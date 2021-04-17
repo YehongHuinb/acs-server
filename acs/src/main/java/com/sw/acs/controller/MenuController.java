@@ -1,6 +1,7 @@
 package com.sw.acs.controller;
 
-import com.sw.acs.domain.AjaxResult;
+import com.sw.acs.web.controller.BaseController;
+import com.sw.acs.web.domain.AjaxResult;
 import com.sw.acs.domain.Menu;
 import com.sw.acs.domain.vo.RouterVo;
 import com.sw.acs.service.MenuService;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -18,7 +18,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/menu")
-public class MenuController extends BaseController{
+public class MenuController extends BaseController {
 
     @Autowired
     private MenuService menuService;

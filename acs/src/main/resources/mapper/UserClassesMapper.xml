@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sw.acs.mapper.UserClassesMapper">
+    <insert id="insert" parameterType="com.sw.acs.domain.UserClasses">
+        insert into user_classes(user_id, classes_id)
+        values(#{userId}, #{classesId})
+    </insert>
+
+    <delete id="delete" parameterType="com.sw.acs.domain.UserClasses">
+        delete from user_classes where user_id = #{userId} and classes_id = #{classesId}
+    </delete>
+</mapper>

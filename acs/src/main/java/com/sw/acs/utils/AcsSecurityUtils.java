@@ -23,15 +23,21 @@ public class AcsSecurityUtils {
         return sb.toString();
     }
 
+    public static String encryptPassword(String password){
+        String salt = getSalt(12);
+        Md5Hash md5Hash = new Md5Hash(password,salt,2);
+        return md5Hash.toString();
+    }
+
     public static String encryptPassword(String password,String salt){
         Md5Hash md5Hash = new Md5Hash(password,salt,2);
         return md5Hash.toString();
     }
 
+
     public static Integer getUserId(){
         String token = Objects.requireNonNull(ServletUtils.getRequest()).getHeader("Authorization");
         return JwtUtils.getUserId(token);
     }
-
 
 }

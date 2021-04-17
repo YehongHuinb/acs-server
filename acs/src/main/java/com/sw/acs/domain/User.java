@@ -1,14 +1,17 @@
 package com.sw.acs.domain;
 
+import java.util.List;
+
 /**
  * @author 周良聪
  */
 public class User {
     private Integer userId;
+    private Integer roleId;
     private String userName;
-    private String nikeName;
+    private String nickName;
     private String password;
-    private String telephone;
+    private String phoneNumber;
     private String sex;
     private String avatar;
     private String salt;
@@ -21,6 +24,14 @@ public class User {
         this.userId = userId;
     }
 
+    public Integer getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -29,12 +40,12 @@ public class User {
         this.userName = userName;
     }
 
-    public String getNikeName() {
-        return nikeName;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setNikeName(String nikeName) {
-        this.nikeName = nikeName;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public String getPassword() {
@@ -45,12 +56,12 @@ public class User {
         this.password = password;
     }
 
-    public String getTelephone() {
-        return telephone;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getSex() {
@@ -81,10 +92,11 @@ public class User {
     public String toString() {
         return "User{" +
                 "userId=" + userId +
+                ", roleId=" + roleId +
                 ", userName='" + userName + '\'' +
-                ", nikeName='" + nikeName + '\'' +
+                ", nickName='" + nickName + '\'' +
                 ", password='" + password + '\'' +
-                ", telephone='" + telephone + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", sex='" + sex + '\'' +
                 ", avatar='" + avatar + '\'' +
                 ", salt='" + salt + '\'' +

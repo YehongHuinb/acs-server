@@ -1,7 +1,7 @@
 package com.sw.acs.exception;
 
 import com.auth0.jwt.exceptions.JWTDecodeException;
-import com.sw.acs.domain.AjaxResult;
+import com.sw.acs.web.domain.AjaxResult;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

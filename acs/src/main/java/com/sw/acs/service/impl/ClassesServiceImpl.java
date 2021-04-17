@@ -1,16 +1,18 @@
 package com.sw.acs.service.impl;
 
 import com.sw.acs.domain.Classes;
+import com.sw.acs.domain.UserClasses;
 import com.sw.acs.mapper.ClassesMapper;
+import com.sw.acs.mapper.UserClassesMapper;
 import com.sw.acs.service.ClassesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 /**
- * @author: ZZP
- * @time: 2021/4/7 19:58
+ * @author 周良聪
  */
 @Service
 public class ClassesServiceImpl implements ClassesService {
@@ -18,18 +20,36 @@ public class ClassesServiceImpl implements ClassesService {
     @Autowired
     private ClassesMapper classesMapper;
 
+    @Autowired
+    private UserClassesMapper userClassesMapper;
+
+
     /**
-     * 通过班级名查询
-     * @param ClassesName 班级名
-     * @return 结果
+     * 通过班级信息和用户id查询
+     *
+     * @param classes 班级信息
+     * @param userId  用户id
+     * @return 班级列表
      */
     @Override
-    public Classes selectClassesByClassesName(String ClassesName) {
-        return classesMapper.selectClassesByClassesName(ClassesName);
+    public List<Classes> selectClassesList(Classes classes, Integer userId) {
+        return classesMapper.selectClassesList(classes,userId);
     }
 
     /**
-     * 新增班级
+     * 通过id查找
+     *
+     * @param classesId 班级id
+     * @return 结果
+     */
+    @Override
+    public Classes selectClassesById(Integer classesId) {
+        return classesMapper.selectClassesById(classesId);
+    }
+
+    /**
+     * 插入班级
+     *
      * @param classes 班级信息
      * @return 结果
      */
@@ -39,28 +59,46 @@ public class ClassesServiceImpl implements ClassesService {
     }
 
     /**
-     * 通过班级id删除班级
-     * @param classesId 班级Id
+     * 插入班级用户
+     *
+     * @param userClasses 班级用户信息
      * @return 结果
      */
     @Override
-    public int deleteClassesByClassesId(Integer classesId) {
-
-        return classesMapper.deleteClassesByClassesId(classesId);
+    public int insertClassesUser(UserClasses userClasses) {
+        return userClassesMapper.insert(userClasses);
     }
 
     /**
-     * 查询班级列表
-     * @param
+     * 更新班级信息
+     *
+     * @param classes 班级信息
      * @return 结果
      */
     @Override
-    public List<Classes> getClassesList() {
-        return classesMapper.getClassesList();
+    public int updateClasses(Classes classes) {
+        return classesMapper.updateClasses(classes);
     }
 
+    /**
+     * 删除班级
+     *
+     * @param classesId 班级id
+     * @return 结果
+     */
     @Override
-    public List<Classes> getClassesListByTeacherId(Integer teacherId) {
-        return null;
+    public int deleteClasses(Integer classesId) {
+        return classesMapper.deleteClasses(classesId);
+    }
+
+    /**
+     * 删除班级用户
+     *
+     * @param userClasses 班级用户信息
+     * @return 结果
+     */
+    @Override
+    public int deleteClassesUser(UserClasses userClasses) {
+        return userClassesMapper.delete(userClasses);
     }
 }

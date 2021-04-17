@@ -8,6 +8,7 @@ import java.util.List;
  */
 public class Menu {
 
+    /** 菜单id */
     private Integer menuId;
 
     /** 菜单名称 */

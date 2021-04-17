@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sw.acs.mapper.ExamMapper">
+    <select id="selectExamList" resultType="com.sw.acs.domain.Exam">
+        select e.exam_id, e.exam_name, e.creator_id, u.nick_name as creator_name, e.time, e.create_date,  e.update_date,
+               e.topic_num, e.total_score, e.pass_mark, e.permit_copy, e.disrupt_order,e.repeat_test, e.auto_mack, e.required
+        from t_exam e
+        left join t_user u on creator_id = user_id
+        where e.exam_id != 0
+        <if test="examName != null and examName != ''">
+            AND e.exam_name like concat('%', #{examName}, '%')
+        </if>
+        <if test="creatorName != null and creatorName != ''">
+            AND u.nick_name like concat('%', #{creatorName}, '%')
+        </if>
+    </select>
+
+    <select id="selectExamById" resultType="com.sw.acs.domain.Exam">
+        select e.exam_id, e.exam_name, e.creator_id, u.nick_name as creator_name, e.time, e.create_date,  e.update_date,
+               e.topic_num, e.total_score, e.pass_mark, e.permit_copy, e.disrupt_order,e.repeat_test, e.auto_mack, e.required
+        from t_exam e
+        left join t_user u on creator_id = user_id
+        where e.exam_id = #{examId}
+    </select>
+
+    <insert id="insertExam" parameterType="com.sw.acs.domain.Exam" useGeneratedKeys="true" keyProperty="examId">
+        insert into t_exam(exam_name, creator_id, time, create_date, update_date, topic_num, total_score, pass_mark, permit_copy, disrupt_order, repeat_test, auto_mack, required)
+        values(#{examName}, #{creatorId}, #{time}, #{createDate}, #{updateDate}, #{topicNum}, #{totalScore}, #{passMark}, #{permitCopy}, #{disruptOrder}, #{repeatTest}, #{autoMack}, #{required})
+    </insert>
+
+    <delete id="deleteExam">
+        delete from t_exam where exam_id = #{examId}
+    </delete>
+</mapper>

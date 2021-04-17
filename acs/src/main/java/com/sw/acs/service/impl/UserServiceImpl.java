@@ -4,6 +4,7 @@ import com.sw.acs.constant.UserConstants;
 import com.sw.acs.domain.User;
 import com.sw.acs.mapper.UserMapper;
 import com.sw.acs.service.UserService;
+import com.sw.acs.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,17 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
+
+    /**
+     * 查询用户列表
+     *
+     * @param user 用户信息
+     * @return 用户列表
+     */
+    @Override
+    public List<User> selectUserList(User user) {
+        return userMapper.selectUserList(user);
+    }
 
     /**
      * 通过用户id查询
@@ -53,6 +65,23 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 校验手机号码是否唯一
+     *
+     * @param user 用户信息
+     * @return 结果
+     */
+    @Override
+    public String checkPhoneUnique(User user) {
+        int userId = StringUtils.isNull(user.getUserId()) ? -1 : user.getUserId();
+        User info = userMapper.checkPhoneUnique(user.getPhoneNumber());
+        if (StringUtils.isNotNull(info) && info.getUserId() != userId)
+        {
+            return UserConstants.NOT_UNIQUE;
+        }
+        return UserConstants.UNIQUE;
+    }
+
+    /**
      * 新增用户
      *
      * @param user 用户信息
@@ -82,7 +111,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public int deleteUserById(Integer userId) {
-        return 0;
+        return userMapper.deleteUserById(userId);
     }
 
     /**
@@ -93,7 +122,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public int deleteUserByIds(List<Integer> ids) {
-        return 0;
+        return userMapper.deleteUserByIds(ids);
     }
 
 

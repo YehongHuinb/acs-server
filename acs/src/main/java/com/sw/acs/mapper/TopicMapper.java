@@ -10,5 +10,8 @@ import java.util.List;
 public interface TopicMapper {
 
     List<Topic> selectExamTopicListByExamId(Integer examId);
+
+    Topic selectTopicById(Integer topicId);
+
     int insertTopic(Topic topic);
 }

@@ -1,0 +1,28 @@
+{
+  "properties": [
+    {
+      "name": "acs.name",
+      "type": "java.lang.String",
+      "description": "Description for acs.name."
+    },
+    {
+      "name": "acs.version",
+      "type": "java.lang.String",
+      "description": "Description for acs.version."
+    },
+    {
+      "name": "acs.profile",
+      "type": "java.lang.String",
+      "description": "Description for acs.profile."
+    },
+    {
+      "name": "acs.addressEnabled",
+      "type": "java.lang.String",
+      "description": "Description for acs.addressEnabled."
+    },
+    {
+      "name": "acs.captchaType",
+      "type": "java.lang.String",
+      "description": "Description for acs.captchaType."
+    }
+  ] }

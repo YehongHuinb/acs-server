@@ -2,6 +2,7 @@ package com.sw.acs.mapper;
 
 import com.sw.acs.domain.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -62,6 +63,16 @@ public interface UserMapper {
      * @return 结果
      */
     int updateUser(User user);
+
+    int updateUserAvatar(@Param("userId") Integer userId, @Param("avatar") String avatar);
+
+    /**
+     * 重置用户密码
+     * @param userId 用户id
+     * @param password 用户密码
+     * @return 结果
+     */
+    int resetUserPassword(@Param("userId") Integer userId, @Param("password") String password);
 
     /**
      * 通过用户ID删除用户

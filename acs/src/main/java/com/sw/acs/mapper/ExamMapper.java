@@ -1,6 +1,7 @@
 package com.sw.acs.mapper;
 
 import com.sw.acs.domain.Exam;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,6 +18,8 @@ public interface ExamMapper {
      * @return 试卷信息
      */
     Exam selectExamById(Integer examId);
+
+    Exam selectClassesExam(@Param("classesId") Integer classesId, @Param("examId") Integer examId);
 
     int insertExam(Exam exam);
 

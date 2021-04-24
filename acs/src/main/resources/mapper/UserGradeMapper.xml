@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sw.acs.mapper.UserGradeMapper">
+
+    <select id="selectUserGradeList" resultType="com.sw.acs.domain.UserGrade">
+        select id, ug.user_id, tu.nick_name, classes_id, exam_id, grade, grade_auto, answer_date, answer_time, mark_status, exam_status, mark_date
+        from user_grade ug
+        left join t_user tu on ug.user_id = tu.user_id
+        where classes_id = #{classesId} and exam_id = #{examId}
+    </select>
+
+    <select id="selectUserGrade" resultType="com.sw.acs.domain.UserGrade">
+        select id, user_id, classes_id, exam_id, grade, grade_auto, answer_date, answer_time, mark_status, exam_status, mark_date
+        from user_grade where user_id = #{userId} and classes_id = #{classesId} and exam_id = #{examId}
+    </select>
+
+    <insert id="insertUserGrade" parameterType="com.sw.acs.domain.UserGrade" useGeneratedKeys="true" keyProperty="id">
+        insert into user_grade(user_id, classes_id, exam_id, grade, grade_auto, answer_date, answer_time, mark_status, exam_status, mark_date)
+        values (#{userId}, #{classesId}, #{examId}, #{grade}, #{gradeAuto}, #{answerDate}, #{answerTime}, #{markStatus}, #{examStatus}, #{markDate})
+    </insert>
+
+    <update id="updateUserGrade" parameterType="com.sw.acs.domain.UserGrade">
+        update user_grade
+        <set>
+            <if test="grade != null">
+                grade = #{grade},
+            </if>
+            <if test="gradeAuto != null">
+                grade_auto = #{gradeAuto},
+            </if>
+            <if test="answerDate != null">
+                answer_date = #{answerDate},
+            </if>
+            <if test="answerTime != null">
+                answer_time = #{answerTime},
+            </if>
+            <if test="markStatus != null">
+                mark_status = #{markStatus},
+            </if>
+            <if test="examStatus != null">
+                exam_status = #{examStatus},
+            </if>
+            <if test="markDate != null">
+                mark_date = #{markDate},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteByClassesAndExam">
+        delete from user_grade where classes_id = #{classesId} and exam_id = #{examId}
+    </delete>
+
+    <delete id="deleteByExam">
+        delete from user_grade where exam_id = #{examId}
+    </delete>
+</mapper>

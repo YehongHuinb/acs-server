@@ -1,14 +1,19 @@
 package com.sw.acs.controller;
 
 
+import com.sw.acs.domain.Exam;
+import com.sw.acs.domain.User;
 import com.sw.acs.domain.UserClasses;
 import com.sw.acs.web.controller.BaseController;
 import com.sw.acs.web.domain.AjaxResult;
 import com.sw.acs.domain.Classes;
 import com.sw.acs.service.ClassesService;
 import com.sw.acs.utils.AcsSecurityUtils;
+import com.sw.acs.web.page.TableDataInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 /**
@@ -21,9 +26,11 @@ public class ClassesController extends BaseController {
     private ClassesService classesService;
 
     @GetMapping("/list")
-    public AjaxResult getClassesList(Classes classes){
+    public TableDataInfo getExamList(Classes classes){
+        startPage();
         Integer userId = AcsSecurityUtils.getUserId();
-        return AjaxResult.success(classesService.selectClassesList(classes,userId));
+        List<Classes> list = classesService.selectClassesList(classes,userId);
+        return getDataTable(list);
     }
 
     @GetMapping("/{classesId}")
@@ -32,17 +39,21 @@ public class ClassesController extends BaseController {
     }
 
     @GetMapping("/{classesId}/list")
-    public AjaxResult getClassesUserList(@PathVariable Integer classesId){
-        return AjaxResult.success();
+    public TableDataInfo getClassesUserList(@PathVariable Integer classesId){
+        startPage();
+        List<User> list = classesService.selectClassesUserList(classesId);
+        return getDataTable(list);
     }
 
     @PostMapping
     public AjaxResult insertClasses(@RequestBody Classes classes){
+        Integer userId = AcsSecurityUtils.getUserId();
+        classes.setCreatorId(userId);
         return toAjax(classesService.insertClasses(classes));
     }
 
-    @PostMapping("/user")
-    public AjaxResult insertClassesUser(Integer classesId){
+    @GetMapping("/user/{classesId}")
+    public AjaxResult insertClassesUser(@PathVariable Integer classesId){
         Integer userId = AcsSecurityUtils.getUserId();
         return toAjax(classesService.insertClassesUser(new UserClasses(userId,classesId)));
     }

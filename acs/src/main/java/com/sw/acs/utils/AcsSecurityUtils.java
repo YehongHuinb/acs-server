@@ -1,10 +1,7 @@
 package com.sw.acs.utils;
 
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
-import org.apache.shiro.subject.Subject;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 import java.util.Random;
 
@@ -32,6 +29,12 @@ public class AcsSecurityUtils {
     public static String encryptPassword(String password,String salt){
         Md5Hash md5Hash = new Md5Hash(password,salt,2);
         return md5Hash.toString();
+    }
+
+    public static boolean matchesPassword(String rawPassword, String encodedPassword, String salt){
+        Md5Hash md5Hash = new Md5Hash(rawPassword,salt,2);
+        String password = md5Hash.toString();
+        return password.equals(encodedPassword);
     }
 
 

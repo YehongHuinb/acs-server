@@ -9,8 +9,13 @@
         where et.exam_id = #{examId}
     </select>
 
-    <insert id="insertTopic" parameterType="com.sw.acs.domain.Exam" useGeneratedKeys="true" keyProperty="examId">
-        insert into t_topic(topic_id, question, choice, photo, topic_type, correct_answer, score, difficulty, analysis, create_date, update_date)
-        values(#{topicName}, #{quesstion},#{choice}, #{photo}, #{topicType}, #{correctAnswer}, #{score}, #{difficulty}, #{analysis}, #{createDate}, #{updateDate})
+    <select id="selectTopicById" resultType="com.sw.acs.domain.Topic">
+        select topic_id, question, choice, photo, topic_type, correct_answer, score, difficulty, analysis, create_date, update_date
+        from t_topic where topic_id = #{topicId}
+    </select>
+
+    <insert id="insertTopic" parameterType="com.sw.acs.domain.Topic" useGeneratedKeys="true" keyProperty="topicId">
+        insert into t_topic(question, choice, photo, topic_type, correct_answer, score, difficulty, analysis, create_date, update_date)
+        values(#{question},#{choice}, #{photo}, #{topicType}, #{correctAnswer}, #{score}, #{difficulty}, #{analysis}, #{createDate}, #{updateDate})
     </insert>
 </mapper>

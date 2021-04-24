@@ -3,7 +3,7 @@
 <mapper namespace="com.sw.acs.mapper.ExamMapper">
     <select id="selectExamList" resultType="com.sw.acs.domain.Exam">
         select e.exam_id, e.exam_name, e.creator_id, u.nick_name as creator_name, e.time, e.create_date,  e.update_date,
-               e.topic_num, e.total_score, e.pass_mark, e.permit_copy, e.disrupt_order,e.repeat_test, e.auto_mack, e.required
+               e.topic_num, e.total_score, e.pass_mark, e.permit_copy, e.disrupt_order,e.repeat_test, e.auto_mack
         from t_exam e
         left join t_user u on creator_id = user_id
         where e.exam_id != 0
@@ -17,15 +17,24 @@
 
     <select id="selectExamById" resultType="com.sw.acs.domain.Exam">
         select e.exam_id, e.exam_name, e.creator_id, u.nick_name as creator_name, e.time, e.create_date,  e.update_date,
-               e.topic_num, e.total_score, e.pass_mark, e.permit_copy, e.disrupt_order,e.repeat_test, e.auto_mack, e.required
+               e.topic_num, e.total_score, e.pass_mark, e.permit_copy, e.disrupt_order,e.repeat_test, e.auto_mack
         from t_exam e
         left join t_user u on creator_id = user_id
         where e.exam_id = #{examId}
     </select>
 
+    <select id="selectClassesExam" resultType="com.sw.acs.domain.Exam">
+        select e.exam_id, e.exam_name, e.creator_id, u.nick_name as creator_name, e.time, e.create_date,  e.update_date, ec.start_date,
+               ec.deadline, e.topic_num, e.total_score, e.pass_mark, e.permit_copy, e.disrupt_order, ec.publish_answer, ec.publish_score ,e.repeat_test, e.auto_mack
+        from t_exam e
+        left join t_user u on creator_id = user_id
+        left join exam_classes ec on e.exam_id = ec.exam_id
+        where e.exam_id = #{examId} and ec.classes_id = #{classesId}
+    </select>
+
     <insert id="insertExam" parameterType="com.sw.acs.domain.Exam" useGeneratedKeys="true" keyProperty="examId">
-        insert into t_exam(exam_name, creator_id, time, create_date, update_date, topic_num, total_score, pass_mark, permit_copy, disrupt_order, repeat_test, auto_mack, required)
-        values(#{examName}, #{creatorId}, #{time}, #{createDate}, #{updateDate}, #{topicNum}, #{totalScore}, #{passMark}, #{permitCopy}, #{disruptOrder}, #{repeatTest}, #{autoMack}, #{required})
+        insert into t_exam(exam_name, creator_id, time, create_date, update_date, topic_num, total_score, pass_mark, permit_copy, disrupt_order, repeat_test, auto_mack)
+        values(#{examName}, #{creatorId}, #{time}, #{createDate}, #{updateDate}, #{topicNum}, #{totalScore}, #{passMark}, #{permitCopy}, #{disruptOrder}, #{repeatTest}, #{autoMack})
     </insert>
 
     <delete id="deleteExam">

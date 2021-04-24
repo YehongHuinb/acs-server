@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sw.acs.mapper.UserTopicMapper">
+    <select id="selectUserTopicList" resultType="com.sw.acs.domain.UserTopic">
+        select id, user_id, classes_id, exam_id, topic_id, user_answer, user_score, topic_status
+        from user_topic
+        where user_id = #{userId} and classes_id = #{classesId} and exam_id = #{examId}
+    </select>
+
+    <insert id="insertUserTopic" parameterType="com.sw.acs.domain.UserTopic" useGeneratedKeys="true" keyProperty="id">
+        insert into user_topic(user_id, classes_id, exam_id, topic_id, user_answer, user_score, topic_status)
+        values (#{userId}, #{classesId}, #{examId}, #{topicId}, #{userAnswer}, #{userScore}, #{topicStatus})
+    </insert>
+
+    <update id="updateUserTopic" parameterType="com.sw.acs.domain.UserTopic">
+        update user_topic
+        <set>
+            <if test="userAnswer != null">
+                user_answer = #{userAnswer},
+            </if>
+            <if test="userScore != null">
+                user_score = #{userScore},
+            </if>
+            <if test="topicStatus != null">
+                topic_status = #{topicStatus},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteUserTopic">
+        delete from user_topic where classes_id = #{classesId} and exam_id = #{examId}
+    </delete>
+
+    <delete id="deleteByExam">
+        delete from user_topic where exam_id = #{examId}
+    </delete>
+</mapper>

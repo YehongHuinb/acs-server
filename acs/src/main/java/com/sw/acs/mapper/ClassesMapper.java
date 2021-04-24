@@ -1,6 +1,7 @@
 package com.sw.acs.mapper;
 
 import com.sw.acs.domain.Classes;
+import com.sw.acs.domain.User;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -24,6 +25,13 @@ public interface ClassesMapper {
      * @return 结果
      */
     Classes selectClassesById(Integer classesId);
+
+    /**
+     * 查询班级学生列表
+     * @param classesId 班级id
+     * @return 用户列表
+     */
+    List<User> selectClassesUserList(Integer classesId);
 
     /**
      * 插入班级

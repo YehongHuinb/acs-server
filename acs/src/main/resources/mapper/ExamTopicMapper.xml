@@ -9,4 +9,8 @@
     <delete id="delete">
         delete from exam_topic where exam_id = #{examId} and topic_id = #{topicId}
     </delete>
+
+    <delete id="deleteByExam">
+        delete from exam_topic where exam_id = #{examId}
+    </delete>
 </mapper>

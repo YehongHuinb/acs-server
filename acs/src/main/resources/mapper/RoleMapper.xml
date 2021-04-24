@@ -12,6 +12,6 @@
     </select>
 
     <insert id="insertUserRole" parameterType="com.sw.acs.domain.UserRole">
-        insert into user_role(user_id, role_id) values (#{userRole.userId},#{userRole.roleId})
+        insert into user_role(user_id, role_id) values (#{userId},#{roleId})
     </insert>
 </mapper>

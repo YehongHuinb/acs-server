@@ -5,14 +5,14 @@ package com.sw.acs.domain;
  */
 public class ExamTopic {
     private Integer examId;
-    private Integer classesId;
+    private Integer topicId;
 
     public ExamTopic() {
     }
 
-    public ExamTopic(Integer examId, Integer classesId) {
+    public ExamTopic(Integer examId, Integer topicId) {
         this.examId = examId;
-        this.classesId = classesId;
+        this.topicId = topicId;
     }
 
     public Integer getExamId() {
@@ -23,19 +23,19 @@ public class ExamTopic {
         this.examId = examId;
     }
 
-    public Integer getClassesId() {
-        return classesId;
+    public Integer getTopicId() {
+        return topicId;
     }
 
-    public void setClassesId(Integer classesId) {
-        this.classesId = classesId;
+    public void setTopicId(Integer topicId) {
+        this.topicId = topicId;
     }
 
     @Override
     public String toString() {
         return "ExamTopic{" +
                 "examId=" + examId +
-                ", classesId=" + classesId +
+                ", topicId=" + topicId +
                 '}';
     }
 }

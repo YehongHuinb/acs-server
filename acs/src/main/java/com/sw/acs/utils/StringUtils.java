@@ -1,11 +1,10 @@
 package com.sw.acs.utils;
 
 
-import org.springframework.util.AntPathMatcher;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import com.sw.acs.text.StrFormatter;
+
+import java.util.*;
 
 /**
  * 字符串工具类
@@ -237,9 +236,81 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils
         return str.substring(start, end);
     }
 
+    /**
+     * 格式化文本, {} 表示占位符<br>
+     * 此方法只是简单将占位符 {} 按照顺序替换为参数<br>
+     * 如果想输出 {} 使用 \\转义 { 即可，如果想输出 {} 之前的 \ 使用双转义符 \\\\ 即可<br>
+     * 例：<br>
+     * 通常使用：format("this is {} for {}", "a", "b") -> this is a for b<br>
+     * 转义{}： format("this is \\{} for {}", "a", "b") -> this is \{} for a<br>
+     * 转义\： format("this is \\\\{} for {}", "a", "b") -> this is \a for b<br>
+     * 
+     * @param template 文本模板，被替换的部分用 {} 表示
+     * @param params 参数值
+     * @return 格式化后的文本
+     */
+    public static String format(String template, Object... params)
+    {
+        if (isEmpty(params) || isEmpty(template))
+        {
+            return template;
+        }
+        return StrFormatter.format(template, params);
+    }
 
     /**
-     * 下划线转驼峰命名
+     * 字符串转set
+     * 
+     * @param str 字符串
+     * @param sep 分隔符
+     * @return set集合
+     */
+    public static final Set<String> str2Set(String str, String sep)
+    {
+        return new HashSet<String>(str2List(str, sep, true, false));
+    }
+
+    /**
+     * 字符串转list
+     * 
+     * @param str 字符串
+     * @param sep 分隔符
+     * @param filterBlank 过滤纯空白
+     * @param trim 去掉首尾空白
+     * @return list集合
+     */
+    public static final List<String> str2List(String str, String sep, boolean filterBlank, boolean trim)
+    {
+        List<String> list = new ArrayList<String>();
+        if (StringUtils.isEmpty(str))
+        {
+            return list;
+        }
+
+        // 过滤空白字符串
+        if (filterBlank && StringUtils.isBlank(str))
+        {
+            return list;
+        }
+        String[] split = str.split(sep);
+        for (String string : split)
+        {
+            if (filterBlank && StringUtils.isBlank(string))
+            {
+                continue;
+            }
+            if (trim)
+            {
+                string = string.trim();
+            }
+            list.add(string);
+        }
+
+        return list;
+    }
+
+    /**
+     * 驼峰转下划线命名
      */
     public static String toUnderScoreCase(String str)
     {
@@ -376,45 +447,6 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils
             }
         }
         return sb.toString();
-    }
-
-    /**
-     * 查找指定字符串是否匹配指定字符串列表中的任意一个字符串
-     * 
-     * @param str 指定字符串
-     * @param strs 需要检查的字符串数组
-     * @return 是否匹配
-     */
-    public static boolean matches(String str, List<String> strs)
-    {
-        if (isEmpty(str) || isEmpty(strs))
-        {
-            return false;
-        }
-        for (String pattern : strs)
-        {
-            if (isMatch(pattern, str))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * 判断url是否与规则配置: 
-     * ? 表示单个字符; 
-     * * 表示一层路径内的任意字符串，不可跨层级; 
-     * ** 表示任意层路径;
-     * 
-     * @param pattern 匹配规则
-     * @param url 需要匹配的url
-     * @return
-     */
-    public static boolean isMatch(String pattern, String url)
-    {
-        AntPathMatcher matcher = new AntPathMatcher();
-        return matcher.match(pattern, url);
     }
 
     @SuppressWarnings("unchecked")

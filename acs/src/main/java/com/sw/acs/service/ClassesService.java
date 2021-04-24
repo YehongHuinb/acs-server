@@ -21,6 +21,13 @@ public interface ClassesService {
     List<Classes> selectClassesList(Classes classes, Integer userId);
 
     /**
+     * 查询班级学生列表
+     * @param classesId 班级id
+     * @return 用户列表
+     */
+    List<User> selectClassesUserList(Integer classesId);
+
+    /**
      * 通过id查找
      * @param classesId 班级id
      * @return 结果

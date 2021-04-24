@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * @author 周良聪
  */
-public class UserGrade implements Serializable {
+public class UserGrade {
     /**
      * 主键
      */
@@ -21,24 +21,24 @@ public class UserGrade implements Serializable {
     private Integer userId;
 
     /**
-     * 班级id
-     */
-    private Integer classesId;
-
-    /**
-     * 考试id
-     */
-    private Integer examId;
-
-    /**
      * 用户名称
      */
     private String userName;
 
     /**
+     * 班级id
+     */
+    private Integer classesId;
+
+    /**
      * 班级名称
      */
     private String classesName;
+
+    /**
+     * 考试id
+     */
+    private Integer examId;
 
     /**
      * 考试名称
@@ -82,8 +82,6 @@ public class UserGrade implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date markDate;
 
-    private static final long serialVersionUID = 1L;
-
     public Integer getId() {
         return id;
     }
@@ -100,22 +98,6 @@ public class UserGrade implements Serializable {
         this.userId = userId;
     }
 
-    public Integer getClassesId() {
-        return classesId;
-    }
-
-    public void setClassesId(Integer classesId) {
-        this.classesId = classesId;
-    }
-
-    public Integer getExamId() {
-        return examId;
-    }
-
-    public void setExamId(Integer examId) {
-        this.examId = examId;
-    }
-
     public String getUserName() {
         return userName;
     }
@@ -124,12 +106,28 @@ public class UserGrade implements Serializable {
         this.userName = userName;
     }
 
+    public Integer getClassesId() {
+        return classesId;
+    }
+
+    public void setClassesId(Integer classesId) {
+        this.classesId = classesId;
+    }
+
     public String getClassesName() {
         return classesName;
     }
 
     public void setClassesName(String classesName) {
         this.classesName = classesName;
+    }
+
+    public Integer getExamId() {
+        return examId;
+    }
+
+    public void setExamId(Integer examId) {
+        this.examId = examId;
     }
 
     public String getExamName() {
@@ -194,25 +192,5 @@ public class UserGrade implements Serializable {
 
     public void setMarkDate(Date markDate) {
         this.markDate = markDate;
-    }
-
-    @Override
-    public String toString() {
-        return "UserGrade{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", classesId=" + classesId +
-                ", examId=" + examId +
-                ", userName='" + userName + '\'' +
-                ", classesName='" + classesName + '\'' +
-                ", examName='" + examName + '\'' +
-                ", grade=" + grade +
-                ", gradeAuto=" + gradeAuto +
-                ", answerDate=" + answerDate +
-                ", answerTime=" + answerTime +
-                ", markStatus=" + markStatus +
-                ", examStatus=" + examStatus +
-                ", markDate=" + markDate +
-                '}';
     }
 }

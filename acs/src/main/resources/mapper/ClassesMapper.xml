@@ -4,7 +4,8 @@
     <select id="selectClassesList" resultType="com.sw.acs.domain.Classes">
         select c.classes_id, c.classes_name, c.creator_id, c.introduction, c.people_num, u.nick_name as creator_name
         from t_classes c
-        left join t_user u on u.user_id = c.creator_id
+        left join user_classes uc on c.classes_id = uc.classes_id
+        left join t_user u on u.user_id = uc.user_id
         where u.user_id = #{userId}
         <if test="classes.classesName != null and classes.classesName != ''">
             AND c.classes_name like concat('%', #{classes.classesName}, '%')
@@ -18,11 +19,18 @@
         select c.classes_id, c.classes_name, c.creator_id, c.introduction, c.people_num, u.nick_name as creator_name
         from t_classes c
         left join t_user u on u.user_id = c.creator_id
+        where c.classes_id = #{classesId}
     </select>
 
-    <insert id="insertClasses" parameterType="com.sw.acs.domain.Classes">
+    <select id="selectClassesUserList" resultType="com.sw.acs.domain.User">
+        select u.user_id, u.nick_name, u.sex, u.phone_number  from t_user u
+        left join user_classes uc on u.user_id = uc.user_id
+        where uc.classes_id = #{classesId}
+    </select>
+
+    <insert id="insertClasses" parameterType="com.sw.acs.domain.Classes" useGeneratedKeys="true" keyProperty="classesId">
         insert into t_classes(classes_name, creator_id, introduction, people_num)
-        values(#{classes.classesName},#{classes.creatorId},#{classes.introduction},#{classes.peeopleNum})
+        values(#{classesName},#{creatorId},#{introduction},#{peopleNum})
     </insert>
 
     <update id="updateClasses" parameterType="com.sw.acs.domain.Classes">

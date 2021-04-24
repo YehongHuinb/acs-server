@@ -8,4 +8,6 @@ import com.sw.acs.domain.ExamTopic;
 public interface ExamTopicMapper {
     int insert(ExamTopic examTopic);
     int delete(ExamTopic examTopic);
+
+    int deleteByExam(Integer examId);
 }

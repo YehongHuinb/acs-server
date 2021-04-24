@@ -103,6 +103,23 @@ public class UserServiceImpl implements UserService {
         return userMapper.updateUser(user);
     }
 
+    @Override
+    public int updateUserAvatar(Integer userId, String avatar) {
+        return userMapper.updateUserAvatar(userId,avatar);
+    }
+
+    /**
+     * 重置用户密码
+     *
+     * @param userId   用户id
+     * @param password 用户密码
+     * @return 结果
+     */
+    @Override
+    public int resetUserPassword(Integer userId, String password) {
+        return userMapper.resetUserPassword(userId,password);
+    }
+
     /**
      * 通过用户ID删除用户
      *

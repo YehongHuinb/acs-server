@@ -1,6 +1,7 @@
 package com.sw.acs.service.impl;
 
 import com.sw.acs.domain.Classes;
+import com.sw.acs.domain.User;
 import com.sw.acs.domain.UserClasses;
 import com.sw.acs.mapper.ClassesMapper;
 import com.sw.acs.mapper.UserClassesMapper;
@@ -37,6 +38,17 @@ public class ClassesServiceImpl implements ClassesService {
     }
 
     /**
+     * 查询班级学生列表
+     *
+     * @param classesId 班级id
+     * @return 用户列表
+     */
+    @Override
+    public List<User> selectClassesUserList(Integer classesId) {
+        return classesMapper.selectClassesUserList(classesId);
+    }
+
+    /**
      * 通过id查找
      *
      * @param classesId 班级id
@@ -55,7 +67,10 @@ public class ClassesServiceImpl implements ClassesService {
      */
     @Override
     public int insertClasses(Classes classes) {
-        return classesMapper.insertClasses(classes);
+        classes.setPeopleNum(0);
+        classesMapper.insertClasses(classes);
+        userClassesMapper.insert(new UserClasses(classes.getCreatorId(),classes.getClassesId()));
+        return 1;
     }
 
     /**

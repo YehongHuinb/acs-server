@@ -1,13 +1,14 @@
 package com.sw.acs.controller;
 
 import com.sw.acs.constant.UserConstants;
+import com.sw.acs.domain.UserRole;
+import com.sw.acs.utils.StringUtils;
 import com.sw.acs.web.controller.BaseController;
 import com.sw.acs.web.domain.AjaxResult;
 import com.sw.acs.domain.User;
 import com.sw.acs.service.RoleService;
 import com.sw.acs.service.UserService;
 import com.sw.acs.utils.AcsSecurityUtils;
-import com.sw.acs.utils.StringUtils;
 import com.sw.acs.web.page.TableDataInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -54,9 +55,13 @@ public class UserController extends BaseController {
         {
             return AjaxResult.error("新增用户'" + user.getUserName() + "'失败，手机号码已存在");
         }
-
-        user.setPassword(AcsSecurityUtils.encryptPassword(user.getPassword()));
-        return toAjax(userService.insertUser(user));
+        String salt = AcsSecurityUtils.getSalt(12);
+        user.setSalt(salt);
+        user.setPassword(AcsSecurityUtils.encryptPassword(user.getPassword(),salt));
+        userService.insertUser(user);
+        Integer userId = userService.selectUserByUserName(user.getUserName()).getUserId();
+        roleService.insertUserRole(new UserRole(userId,user.getRoleId()));
+        return AjaxResult.success();
     }
 
     @PutMapping

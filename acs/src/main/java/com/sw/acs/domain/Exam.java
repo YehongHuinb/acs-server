@@ -29,6 +29,10 @@ public class Exam{
      */
     private String creatorName;
 
+    private Integer classesId;
+
+    private String classesName;
+
     /**
      * 答题时间(分钟)
      */
@@ -45,6 +49,18 @@ public class Exam{
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date updateDate;
+
+    /**
+     * 开始时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date startDate;
+
+    /**
+     * 结束时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date deadline;
 
     /**
      * 题目数量
@@ -72,6 +88,16 @@ public class Exam{
     private Integer disruptOrder;
 
     /**
+     * 是否公布答案   0:不公布   1:公布答案
+     */
+    private Integer publishAnswer;
+
+    /**
+     * 是否公布分数   0:不公布   1:公布
+     */
+    private Integer publishScore;
+
+    /**
      * 允许考生考试次数 默认1
      */
     private Integer repeatTest;
@@ -81,7 +107,15 @@ public class Exam{
      */
     private Integer autoMack;
 
+    /**
+     * 题目
+     */
     private List<Topic> topics;
+
+    private List<UserTopic> userTopics;
+
+    private UserGrade userGrade;
+
 
     public Integer getExamId() {
         return examId;
@@ -115,6 +149,22 @@ public class Exam{
         this.creatorName = creatorName;
     }
 
+    public Integer getClassesId() {
+        return classesId;
+    }
+
+    public void setClassesId(Integer classesId) {
+        this.classesId = classesId;
+    }
+
+    public String getClassesName() {
+        return classesName;
+    }
+
+    public void setClassesName(String classesName) {
+        this.classesName = classesName;
+    }
+
     public Integer getTime() {
         return time;
     }
@@ -137,6 +187,22 @@ public class Exam{
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
     }
 
     public Integer getTopicNum() {
@@ -179,6 +245,22 @@ public class Exam{
         this.disruptOrder = disruptOrder;
     }
 
+    public Integer getPublishAnswer() {
+        return publishAnswer;
+    }
+
+    public void setPublishAnswer(Integer publishAnswer) {
+        this.publishAnswer = publishAnswer;
+    }
+
+    public Integer getPublishScore() {
+        return publishScore;
+    }
+
+    public void setPublishScore(Integer publishScore) {
+        this.publishScore = publishScore;
+    }
+
     public Integer getRepeatTest() {
         return repeatTest;
     }
@@ -203,24 +285,19 @@ public class Exam{
         this.topics = topics;
     }
 
-    @Override
-    public String toString() {
-        return "Exam{" +
-                "examId=" + examId +
-                ", examName='" + examName + '\'' +
-                ", creatorId=" + creatorId +
-                ", creatorName='" + creatorName + '\'' +
-                ", time=" + time +
-                ", createDate=" + createDate +
-                ", updateDate=" + updateDate +
-                ", topicNum=" + topicNum +
-                ", totalScore=" + totalScore +
-                ", passMark=" + passMark +
-                ", permitCopy=" + permitCopy +
-                ", disruptOrder=" + disruptOrder +
-                ", repeatTest=" + repeatTest +
-                ", autoMack=" + autoMack +
-                ", topics=" + topics +
-                '}';
+    public List<UserTopic> getUserTopics() {
+        return userTopics;
+    }
+
+    public void setUserTopics(List<UserTopic> userTopics) {
+        this.userTopics = userTopics;
+    }
+
+    public UserGrade getUserGrade() {
+        return userGrade;
+    }
+
+    public void setUserGrade(UserGrade userGrade) {
+        this.userGrade = userGrade;
     }
 }

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sw.acs.mapper.ClassesExamMapper">
+    <select id="selectClassesExamList" resultType="com.sw.acs.domain.ClassesExam">
+        select ec.id, ec.exam_id, te.exam_name, ec.classes_id, tc.classes_name,tc.creator_id,
+               release_date, start_date, deadline, te.topic_num, te.total_score, ug.grade, te.pass_mark, publish_answer, publish_score, status
+        from exam_classes ec
+        left join t_exam te on te.exam_id = ec.exam_id
+        left join t_classes tc on ec.classes_id = tc.classes_id
+        left join user_grade ug on ec.classes_id = ug.classes_id and ec.exam_id = ug.exam_id and ug.user_id = #{userId}
+        where ec.classes_id = #{classesId}
+    </select>
+
+    <select id="selectClassesExamById" resultType="com.sw.acs.domain.ClassesExam">
+        select id, exam_id, classes_id, release_date, start_date, deadline, publish_answer, publish_score, status
+        from exam_classes
+        where id = #{id}
+    </select>
+
+    <select id="selectClassesExam" resultType="com.sw.acs.domain.ClassesExam">
+        select id, exam_id, classes_id, release_date, start_date, deadline, publish_answer, publish_score, status
+        from exam_classes
+        where exam_id = #{examId} and classes_id = #{classesId}
+    </select>
+
+    <insert id="insert" parameterType="com.sw.acs.domain.ClassesExam" useGeneratedKeys="true" keyProperty="id">
+        insert into exam_classes(exam_id, classes_id, release_date, start_date, deadline, publish_answer, publish_score)
+        values (#{examId}, #{classesId}, #{releaseDate}, #{startDate}, #{deadline}, #{publishAnswer}, #{publishScore})
+    </insert>
+
+    <update id="update" parameterType="com.sw.acs.domain.ClassesExam">
+        update exam_classes
+        <set>
+            <if test="releaseDate != null">
+                release_date = #{releaseDate},
+            </if>
+            <if test="startDate != null">
+                start_date = #{startDate},
+            </if>
+            <if test="deadline != null">
+                deadline = #{deadline},
+            </if>
+            <if test="publishAnswer != null">
+                publish_answer = #{publishAnswer},
+            </if>
+            <if test="publishScore != null">
+                publish_score = #{publishScore},
+            </if>
+        </set>
+        where classes_id = #{classesId} and exam_id = #{examId}
+    </update>
+
+    <delete id="cancelRelease">
+        delete from exam_classes where classes_id = #{classesId} and exam_id = #{examId}
+    </delete>
+
+    <delete id="deleteByExam">
+        delete from exam_classes where exam_id = #{examId}
+    </delete>
+</mapper>

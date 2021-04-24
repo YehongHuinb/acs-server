@@ -1,5 +1,6 @@
 package com.sw.acs.service;
 import com.sw.acs.domain.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -59,6 +60,16 @@ public interface UserService {
      * @return 结果
      */
     int updateUser(User user);
+
+    int updateUserAvatar(Integer userId, String avatar);
+
+    /**
+     * 重置用户密码
+     * @param userId 用户id
+     * @param password 用户密码
+     * @return 结果
+     */
+    int resetUserPassword(Integer userId, String password);
 
     /**
      * 通过用户ID删除用户

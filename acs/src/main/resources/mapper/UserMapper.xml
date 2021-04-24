@@ -48,6 +48,14 @@
         where user_id = #{userId}
     </update>
 
+    <update id="resetUserPassword">
+        update t_user set password = #{password} where user_id = #{userId}
+    </update>
+
+    <update id="updateUserAvatar">
+        update t_user set avatar = #{avatar} where user_id = #{userId}
+    </update>
+
     <delete id="deleteUserById" parameterType="Integer">
         delete from t_user where user_id = #{userId}
     </delete>

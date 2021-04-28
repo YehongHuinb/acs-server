@@ -3,7 +3,8 @@
 <mapper namespace="com.sw.acs.mapper.ClassesExamMapper">
     <select id="selectClassesExamList" resultType="com.sw.acs.domain.ClassesExam">
         select ec.id, ec.exam_id, te.exam_name, ec.classes_id, tc.classes_name,tc.creator_id,
-               release_date, start_date, deadline, te.topic_num, te.total_score, ug.grade, te.pass_mark, publish_answer, publish_score, status
+               release_date, start_date, deadline, te.topic_num, te.total_score, ug.grade, te.pass_mark, publish_answer, publish_score, status,
+               ug.exam_status,te.time
         from exam_classes ec
         left join t_exam te on te.exam_id = ec.exam_id
         left join t_classes tc on ec.classes_id = tc.classes_id

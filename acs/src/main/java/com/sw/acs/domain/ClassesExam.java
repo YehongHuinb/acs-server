@@ -99,6 +99,10 @@ public class ClassesExam {
      */
     private Integer status;
 
+    private Integer examStatus;
+
+    private Integer time;
+
     private List<Integer> ids;
 
     public Integer getId() {
@@ -243,5 +247,21 @@ public class ClassesExam {
 
     public void setIds(List<Integer> ids) {
         this.ids = ids;
+    }
+
+    public Integer getExamStatus() {
+        return examStatus;
+    }
+
+    public void setExamStatus(Integer examStatus) {
+        this.examStatus = examStatus;
+    }
+
+    public Integer getTime() {
+        return time;
+    }
+
+    public void setTime(Integer time) {
+        this.time = time;
     }
 }

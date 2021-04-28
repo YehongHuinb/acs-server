@@ -3,15 +3,18 @@
 <mapper namespace="com.sw.acs.mapper.UserGradeMapper">
 
     <select id="selectUserGradeList" resultType="com.sw.acs.domain.UserGrade">
-        select id, ug.user_id, tu.nick_name, classes_id, exam_id, grade, grade_auto, answer_date, answer_time, mark_status, exam_status, mark_date
+        select id, ug.user_id, tu.nick_name as user_name, classes_id, exam_id, grade, grade_auto, answer_date, answer_time, mark_status, exam_status, mark_date
         from user_grade ug
         left join t_user tu on ug.user_id = tu.user_id
         where classes_id = #{classesId} and exam_id = #{examId}
     </select>
 
     <select id="selectUserGrade" resultType="com.sw.acs.domain.UserGrade">
-        select id, user_id, classes_id, exam_id, grade, grade_auto, answer_date, answer_time, mark_status, exam_status, mark_date
-        from user_grade where user_id = #{userId} and classes_id = #{classesId} and exam_id = #{examId}
+        select id, ug.user_id, ug.classes_id, exam_id, grade, grade_auto, answer_date, answer_time, mark_status, exam_status, mark_date,tu.nick_name as user_name,tc.classes_name
+        from user_grade ug
+        left join t_user tu on ug.user_id = tu.user_id
+        left join t_classes tc on ug.classes_id = tc.classes_id
+        where ug.user_id = #{userId} and ug.classes_id = #{classesId} and exam_id = #{examId}
     </select>
 
     <insert id="insertUserGrade" parameterType="com.sw.acs.domain.UserGrade" useGeneratedKeys="true" keyProperty="id">

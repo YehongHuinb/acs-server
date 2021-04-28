@@ -67,7 +67,7 @@ public class ClassesServiceImpl implements ClassesService {
      */
     @Override
     public int insertClasses(Classes classes) {
-        classes.setPeopleNum(0);
+        classes.setPeopleNum(1);
         classesMapper.insertClasses(classes);
         userClassesMapper.insert(new UserClasses(classes.getCreatorId(),classes.getClassesId()));
         return 1;

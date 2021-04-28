@@ -10,7 +10,6 @@ package com.sw.acs.domain;
 public class Classes {
 
     private Integer classesId;
-
     private String classesName;
 
     private Integer creatorId;

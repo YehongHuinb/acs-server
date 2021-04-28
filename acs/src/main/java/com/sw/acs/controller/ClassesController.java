@@ -26,7 +26,7 @@ public class ClassesController extends BaseController {
     private ClassesService classesService;
 
     @GetMapping("/list")
-    public TableDataInfo getExamList(Classes classes){
+    public TableDataInfo getClassesList(Classes classes){
         startPage();
         Integer userId = AcsSecurityUtils.getUserId();
         List<Classes> list = classesService.selectClassesList(classes,userId);

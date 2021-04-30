@@ -81,6 +81,9 @@ public class ClassesServiceImpl implements ClassesService {
      */
     @Override
     public int insertClassesUser(UserClasses userClasses) {
+        Classes classes = classesMapper.selectClassesById(userClasses.getClassesId());
+        classes.setPeopleNum(classes.getPeopleNum() + 1);
+        classesMapper.updateClasses(classes);
         return userClassesMapper.insert(userClasses);
     }
 
@@ -114,6 +117,9 @@ public class ClassesServiceImpl implements ClassesService {
      */
     @Override
     public int deleteClassesUser(UserClasses userClasses) {
+        Classes classes = classesMapper.selectClassesById(userClasses.getClassesId());
+        classes.setPeopleNum(classes.getPeopleNum() - 1);
+        classesMapper.updateClasses(classes);
         return userClassesMapper.delete(userClasses);
     }
 }

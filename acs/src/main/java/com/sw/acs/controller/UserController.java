@@ -75,6 +75,14 @@ public class UserController extends BaseController {
         return toAjax(userService.updateUser(user));
     }
 
+    @PutMapping("/resetPassword")
+    public AjaxResult resetPassword(@RequestBody User user){
+        User currentUser = userService.selectUserById(user.getUserId());
+        String salt = currentUser.getSalt();
+        String password = AcsSecurityUtils.encryptPassword(user.getPassword(),salt);
+        return toAjax(userService.resetUserPassword(user.getUserId(), password));
+    }
+
     @DeleteMapping("/{userId}")
     public AjaxResult deleteUser(@PathVariable("userId") Integer userId){
         return toAjax(userService.deleteUserById(userId));

@@ -45,4 +45,5 @@ public interface ClassesExamMapper {
     int cancelRelease(@Param("classesId") Integer classesId, @Param("examId") Integer examId);
 
     int deleteByExam(Integer examId);
+
 }

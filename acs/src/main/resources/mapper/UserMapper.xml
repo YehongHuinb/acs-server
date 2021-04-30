@@ -39,7 +39,7 @@
     <update id="updateUser" parameterType="com.sw.acs.domain.User">
         update t_user
         <set>
-            <if test="password != null">password = #{password},</if>
+            <if test="password != null and password !=''">password = #{password},</if>
             <if test="nickName != null">nick_name = #{nickName},</if>
             <if test="phoneNumber != null">phone_number = #{phoneNumber},</if>
             <if test="sex != null">sex = #{sex},</if>

@@ -2,6 +2,7 @@ package com.sw.acs.service;
 
 import com.sw.acs.domain.Exam;
 import com.sw.acs.domain.ClassesExam;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 

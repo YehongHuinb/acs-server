@@ -61,6 +61,7 @@ public class ExamController extends BaseController {
 
     @PostMapping("/mark")
     public AjaxResult markExam(@RequestBody Exam exam){
+
         return  toAjax(examService.markExam(exam));
     }
 
@@ -85,4 +86,5 @@ public class ExamController extends BaseController {
     public AjaxResult deleteExam(@PathVariable Integer examId){
         return toAjax(examService.deleteExam(examId));
     }
+
 }

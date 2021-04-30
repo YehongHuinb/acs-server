@@ -5,8 +5,8 @@
         select c.classes_id, c.classes_name, c.creator_id, c.introduction, c.people_num, u.nick_name as creator_name
         from t_classes c
         left join user_classes uc on c.classes_id = uc.classes_id
-        left join t_user u on u.user_id = uc.user_id
-        where u.user_id = #{userId}
+        left join t_user u on u.user_id = c.creator_id
+        where uc.user_id = #{userId}
         <if test="classes.classesName != null and classes.classesName != ''">
             AND c.classes_name like concat('%', #{classes.classesName}, '%')
         </if>
@@ -41,6 +41,9 @@
             </if>
             <if test="introduction != null and introduction != ''">
                 introduction = #{introduction},
+            </if>
+            <if test="peopleNum != null and introduction != ''">
+                people_num = #{peopleNum},
             </if>
         </set>
         where classes_id = #{classesId}

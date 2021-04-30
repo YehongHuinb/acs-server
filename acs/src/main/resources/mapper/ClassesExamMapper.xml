@@ -12,6 +12,13 @@
         where ec.classes_id = #{classesId}
     </select>
 
+    <select id="selectReleaseClassesList" resultType="com.sw.acs.domain.ClassesExam">
+        select tc.classes_id, tc.classes_name, ec.release_date, ec.start_date, ec.deadline
+        from t_classes tc
+        left join exam_classes ec on tc.classes_id = ec.classes_id and ec.exam_id = #{examId}
+        where tc.creator_id = #{userId}
+    </select>
+
     <select id="selectClassesExamById" resultType="com.sw.acs.domain.ClassesExam">
         select id, exam_id, classes_id, release_date, start_date, deadline, publish_answer, publish_score, status
         from exam_classes

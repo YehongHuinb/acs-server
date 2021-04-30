@@ -26,6 +26,18 @@ public class ReleaseExamServiceImpl implements ReleaseExamService {
     @Autowired
     private UserGradeMapper userGradeMapper;
 
+    /**
+     * 获取发布班级信息
+     *
+     * @param examId 试卷id
+     * @param userId 用户id
+     * @return 班级试卷列表
+     */
+    @Override
+    public List<ClassesExam> getReleaseClassesList(Integer examId, Integer userId) {
+        return classesExamMapper.selectReleaseClassesList(examId, userId);
+    }
+
     @Override
     public int releaseExam(ClassesExam classesExam){
         classesExam.setReleaseDate(new Date());

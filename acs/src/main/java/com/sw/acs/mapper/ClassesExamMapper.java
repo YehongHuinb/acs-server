@@ -13,6 +13,7 @@ import java.util.List;
 public interface ClassesExamMapper {
     List<ClassesExam> selectClassesExamList(@Param("classesId") Integer classesId, @Param("userId") Integer userId);
 
+    List<ClassesExam> selectReleaseClassesList(@Param("examId") Integer examId, @Param("userId") Integer userId);
 
     /**
      *
@@ -36,9 +37,10 @@ public interface ClassesExamMapper {
     int update(ClassesExam classesExam);
 
     /**
-     * 取消发布
-     * @param id id
-     * @return 结果
+     *
+     * @param classesId
+     * @param examId
+     * @return
      */
     int cancelRelease(@Param("classesId") Integer classesId, @Param("examId") Integer examId);
 

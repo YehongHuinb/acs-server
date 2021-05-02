@@ -55,6 +55,7 @@ public class ClassesController extends BaseController {
     @GetMapping("/user/{classesId}")
     public AjaxResult insertClassesUser(@PathVariable Integer classesId){
         Integer userId = AcsSecurityUtils.getUserId();
+
         return toAjax(classesService.insertClassesUser(new UserClasses(userId,classesId)));
     }
 

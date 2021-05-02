@@ -43,8 +43,14 @@ public class ReleaseExamServiceImpl implements ReleaseExamService {
         classesExam.setReleaseDate(new Date());
         List<Integer> ids = classesExam.getIds();
         for (Integer id : ids) {
+            ClassesExam classesExams = classesExamMapper.selectClassesExam(id,classesExam.getExamId());
             classesExam.setClassesId(id);
-            classesExamMapper.insert(classesExam);
+            if(classesExams==null) {
+                classesExamMapper.insert(classesExam);
+            }
+            else {
+                classesExamMapper.update(classesExam);
+            }
         }
         return 1;
     }

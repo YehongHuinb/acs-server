@@ -71,7 +71,7 @@ public class ExamController extends BaseController {
         return toAjax(examService.insertExam(exam));
     }
 
-    @PutMapping
+    @PutMapping("/update")
     public AjaxResult updateExam(@RequestBody Exam exam){
         return toAjax(examService.updateExam(exam));
     }

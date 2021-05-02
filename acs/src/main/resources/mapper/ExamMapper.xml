@@ -40,4 +40,47 @@
     <delete id="deleteExam">
         delete from t_exam where exam_id = #{examId}
     </delete>
+
+    <update id="update" parameterType="com.sw.acs.domain.Exam">
+        update t_exam
+        <set>
+            <if test="examName != null">
+                exam_name = #{examName},
+            </if>
+            <if test="creatorId != null">
+                creator_id = #{creatorId,},
+            </if>
+            <if test="time != null">
+                `time` = #{time},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate},
+            </if>
+            <if test="topicNum != null">
+                topic_num = #{topicNum},
+            </if>
+            <if test="totalScore != null">
+                total_score = #{totalScore},
+            </if>
+            <if test="passMark != null">
+                pass_mark = #{passMark},
+            </if>
+            <if test="permitCopy != null">
+                permit_copy = #{permitCopy},
+            </if>
+            <if test="disruptOrder != null">
+                disrupt_order = #{disruptOrder},
+            </if>
+            <if test="repeatTest != null">
+                repeat_test = #{repeatTest},
+            </if>
+            <if test="autoMack != null">
+                auto_mack = #{autoMack},
+            </if>
+        </set>
+        where exam_id = #{examId}
+    </update>
 </mapper>

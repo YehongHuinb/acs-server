@@ -14,4 +14,8 @@ public interface TopicMapper {
     Topic selectTopicById(Integer topicId);
 
     int insertTopic(Topic topic);
+
+    int updateByTopicId(Topic topic);
+
+    int delete(Integer topicId);
 }

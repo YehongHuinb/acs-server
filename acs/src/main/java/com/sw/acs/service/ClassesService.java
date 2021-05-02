@@ -68,4 +68,10 @@ public interface ClassesService {
      * @return 结果
      */
     int deleteClassesUser(UserClasses userClasses);
+
+    /**
+     * 通过id查找
+     * @param classesName 班级名
+     * @return 结果
+     */
 }

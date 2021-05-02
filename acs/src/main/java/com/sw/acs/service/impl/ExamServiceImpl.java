@@ -3,9 +3,11 @@ package com.sw.acs.service.impl;
 import com.sw.acs.domain.*;
 import com.sw.acs.mapper.*;
 import com.sw.acs.service.ExamService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -116,7 +118,49 @@ public class ExamServiceImpl implements ExamService {
      */
     @Override
     public int updateExam(Exam exam) {
-        return 0;
+        if(classesExamMapper.selectClassesExamByExamId(exam.getExamId()).size()!=0){
+            return 0;
+        }
+        List<ExamTopic> examTopics = examTopicMapper.selectByExamId(exam.getExamId());
+        List<Integer> oldTopicIdList = new ArrayList<Integer>();
+        for (ExamTopic tt:examTopics){
+            oldTopicIdList.add(tt.getTopicId());
+        }
+
+        for(Topic t:exam.getTopics()){
+            Topic topic = new Topic();
+            BeanUtils.copyProperties(t,topic);
+
+            boolean isHas =false;
+            for(int i=0;i<oldTopicIdList.size();i++){
+                if(t.getTopicId().equals(oldTopicIdList.get(i))){
+                    isHas = true;
+                    topicMapper.updateByTopicId(topic);
+                    oldTopicIdList.remove(i);
+                    break;
+                }
+            }
+            if(!isHas){
+                topic.setUpdateDate(new Date());
+                topic.setCreateDate(new Date());
+                topicMapper.insertTopic(topic);
+                examTopicMapper.insert(new ExamTopic(exam.getExamId(),topic.getTopicId()));
+            }
+            for (Integer oldT_id:oldTopicIdList){
+                ExamTopic examTopic = new ExamTopic();
+                examTopic.setExamId(exam.getExamId());
+                examTopic.setTopicId(oldT_id);
+                examTopicMapper.delete(examTopic);
+                topicMapper.delete(oldT_id);
+            }
+
+            //修改试卷信息
+            Exam exam1 = new Exam();
+            BeanUtils.copyProperties(exam,exam1);
+            exam1.setUpdateDate(new Date());
+            examMapper.update(exam1);
+        }
+        return 1;
     }
 
     @Override

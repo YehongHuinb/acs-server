@@ -23,10 +23,6 @@ public class Topic{
      */
     private String choice;
 
-    /**
-     * 图片
-     */
-    private String photo;
 
     /**
      * 题目类型  0:单选题 1:多选题 2:判断题 3:填空题 4:简答题
@@ -91,14 +87,6 @@ public class Topic{
         this.choice = choice;
     }
 
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
     public Integer getTopicType() {
         return topicType;
     }
@@ -161,7 +149,6 @@ public class Topic{
                 "topicId=" + topicId +
                 ", question='" + question + '\'' +
                 ", choice='" + choice + '\'' +
-                ", photo='" + photo + '\'' +
                 ", topicType=" + topicType +
                 ", correctAnswer='" + correctAnswer + '\'' +
                 ", score=" + score +

@@ -29,4 +29,6 @@ public interface ExamMapper {
      * @return 结果
      */
     int deleteExam(Integer examId);
+
+    int update(Exam exam);
 }

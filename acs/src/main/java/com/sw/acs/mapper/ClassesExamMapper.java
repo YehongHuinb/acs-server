@@ -46,4 +46,5 @@ public interface ClassesExamMapper {
 
     int deleteByExam(Integer examId);
 
+    List<ClassesExam> selectClassesExamByExamId(Integer examId);
 }

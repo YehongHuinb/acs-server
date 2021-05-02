@@ -3,10 +3,13 @@
 <mapper namespace="com.sw.acs.mapper.UserGradeMapper">
 
     <select id="selectUserGradeList" resultType="com.sw.acs.domain.UserGrade">
-        select id, ug.user_id, tu.nick_name as user_name, classes_id, exam_id, grade, grade_auto, answer_date, answer_time, mark_status, exam_status, mark_date
-        from user_grade ug
-        left join t_user tu on ug.user_id = tu.user_id
-        where classes_id = #{classesId} and exam_id = #{examId}
+        select u.user_id,u.user_name,c.classes_name,e.exam_name,ug.*
+        from t_user u
+        join t_exam e on e.exam_id = #{examId}
+        join t_classes c on c.classes_id = #{classesId}
+        join user_classes uc on uc.user_id = u.user_id
+        left join user_grade ug on ug.user_id = uc.user_id  and ug.exam_id = e.exam_id and ug.classes_id = c.classes_id
+        where uc.classes_id = #{classesId} and u.user_id !=c.creator_id
     </select>
 
     <select id="selectUserGrade" resultType="com.sw.acs.domain.UserGrade">
@@ -47,7 +50,7 @@
                 mark_date = #{markDate},
             </if>
         </set>
-        where id = #{id}
+        where user_id = #{userId} and classes_id = #{classesId} and exam_id = #{examId}
     </update>
 
     <delete id="deleteByClassesAndExam">

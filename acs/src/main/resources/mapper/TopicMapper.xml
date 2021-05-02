@@ -3,19 +3,57 @@
 <mapper namespace="com.sw.acs.mapper.TopicMapper">
 
     <select id="selectExamTopicListByExamId" resultType="com.sw.acs.domain.Topic">
-        select t.topic_id, t.question, t.choice, t.photo, t.topic_type, t.correct_answer, t.score, t.difficulty, t.analysis, t.create_date, t.update_date
+        select t.topic_id, t.question, t.choice, t.topic_type, t.correct_answer, t.score, t.difficulty, t.analysis, t.create_date, t.update_date
         from t_topic t
         left join exam_topic et on t.topic_id = et.topic_id
         where et.exam_id = #{examId}
     </select>
 
     <select id="selectTopicById" resultType="com.sw.acs.domain.Topic">
-        select topic_id, question, choice, photo, topic_type, correct_answer, score, difficulty, analysis, create_date, update_date
+        select topic_id, question, choice, topic_type, correct_answer, score, difficulty, analysis, create_date, update_date
         from t_topic where topic_id = #{topicId}
     </select>
 
     <insert id="insertTopic" parameterType="com.sw.acs.domain.Topic" useGeneratedKeys="true" keyProperty="topicId">
-        insert into t_topic(question, choice, photo, topic_type, correct_answer, score, difficulty, analysis, create_date, update_date)
-        values(#{question},#{choice}, #{photo}, #{topicType}, #{correctAnswer}, #{score}, #{difficulty}, #{analysis}, #{createDate}, #{updateDate})
+        insert into t_topic(question, choice, topic_type, correct_answer, score, difficulty, analysis, create_date, update_date)
+        values(#{question},#{choice}, #{topicType}, #{correctAnswer}, #{score}, #{difficulty}, #{analysis}, #{createDate}, #{updateDate})
     </insert>
+
+    <update id="updateByTopicId" parameterType="com.sw.acs.domain.Topic">
+        update t_topic
+        <set>
+            <if test="question != null">
+                question = #{question},
+            </if>
+            <if test="choice != null">
+                choice = #{choice},
+            </if>
+            <if test="topicType != null">
+                topic_type = #{topicType},
+            </if>
+            <if test="correctAnswer != null">
+                correct_answer = #{correctAnswer},
+            </if>
+            <if test="score != null">
+                score = #{score},
+            </if>
+            <if test="difficulty != null">
+                difficulty = #{difficulty},
+            </if>
+            <if test="analysis != null">
+                analysis = #{analysis},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate},
+            </if>
+        </set>
+        where topic_id = #{topicId}
+    </update>
+
+    <delete id="delete">
+        delete from t_topic where topic_id = #{topicId}
+    </delete>
 </mapper>

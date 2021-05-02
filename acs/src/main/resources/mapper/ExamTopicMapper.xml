@@ -13,4 +13,10 @@
     <delete id="deleteByExam">
         delete from exam_topic where exam_id = #{examId}
     </delete>
+
+    <select id="selectByExamId" resultType="com.sw.acs.domain.ExamTopic">
+        select exam_id,topic_id
+        from exam_topic
+        where exam_id = #{examId}
+    </select>
 </mapper>

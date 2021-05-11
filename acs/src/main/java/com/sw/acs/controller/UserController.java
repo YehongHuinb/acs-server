@@ -58,6 +58,7 @@ public class UserController extends BaseController {
         String salt = AcsSecurityUtils.getSalt(12);
         user.setSalt(salt);
         user.setPassword(AcsSecurityUtils.encryptPassword(user.getPassword(),salt));
+        user.setAvatar("");
         userService.insertUser(user);
         Integer userId = userService.selectUserByUserName(user.getUserName()).getUserId();
         roleService.insertUserRole(new UserRole(userId,user.getRoleId()));

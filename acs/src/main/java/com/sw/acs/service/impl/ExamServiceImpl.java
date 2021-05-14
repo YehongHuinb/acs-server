@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -127,31 +128,22 @@ public class ExamServiceImpl implements ExamService {
             oldTopicIdList.add(tt.getTopicId());
         }
 
-        for(Topic t:exam.getTopics()){
-            Topic topic = new Topic();
-            BeanUtils.copyProperties(t,topic);
+        for(Topic topic:exam.getTopics()){
 
             boolean isHas =false;
             for(int i=0;i<oldTopicIdList.size();i++){
-                if(t.getTopicId().equals(oldTopicIdList.get(i))){
+                if(topic.getTopicId()!=null&&oldTopicIdList.get(i).equals(topic.getTopicId())){
                     isHas = true;
                     topicMapper.updateByTopicId(topic);
                     oldTopicIdList.remove(i);
                     break;
                 }
             }
-            if(!isHas){
+            if(!isHas) {
                 topic.setUpdateDate(new Date());
                 topic.setCreateDate(new Date());
                 topicMapper.insertTopic(topic);
-                examTopicMapper.insert(new ExamTopic(exam.getExamId(),topic.getTopicId()));
-            }
-            for (Integer oldT_id:oldTopicIdList){
-                ExamTopic examTopic = new ExamTopic();
-                examTopic.setExamId(exam.getExamId());
-                examTopic.setTopicId(oldT_id);
-                examTopicMapper.delete(examTopic);
-                topicMapper.delete(oldT_id);
+                examTopicMapper.insert(new ExamTopic(exam.getExamId(), topic.getTopicId()));
             }
 
             //修改试卷信息
@@ -159,6 +151,11 @@ public class ExamServiceImpl implements ExamService {
             BeanUtils.copyProperties(exam,exam1);
             exam1.setUpdateDate(new Date());
             examMapper.update(exam1);
+        }
+        for (Integer oldT_id:oldTopicIdList){
+            ExamTopic examTopic = new ExamTopic(exam.getExamId(),oldT_id);
+            examTopicMapper.delete(examTopic);
+            topicMapper.delete(oldT_id);
         }
         return 1;
     }
@@ -201,9 +198,7 @@ public class ExamServiceImpl implements ExamService {
 
                 userTopic.setUserScore(topicGrade);
                 grade = grade + topicGrade;
-            }
-            //简答题
-            else if(topic.getTopicType() == 4){
+            }else if(topic.getTopicType() == 4){
                 String[] correctAnswerArr = topic.getCorrectAnswer().split("\n");
                 double topicGrade = 0;
                 for (String ca : correctAnswerArr) {
@@ -215,7 +210,18 @@ public class ExamServiceImpl implements ExamService {
                 grade = grade + topicGrade;
 
                 //其他题型
-            }else if(topic.getCorrectAnswer().equals(userTopic.getUserAnswer())){
+            } else if(topic.getTopicType()==1){
+                String[] correctAnswerArr = topic.getCorrectAnswer().split("\n");
+                String[] userAnswerArr = userTopic.getUserAnswer().split("\n");
+                ArrayList<String> correct = new ArrayList<String>();
+                ArrayList<String> userAnswer = new ArrayList<String>();
+                Collections.addAll(correct, correctAnswerArr);
+                Collections.addAll(userAnswer, userAnswerArr);
+                if(correct.containsAll(userAnswer)){
+                    userTopic.setUserScore(topic.getScore());
+                    grade = grade + topic.getScore();
+                }
+            } else if(topic.getCorrectAnswer().equals(userTopic.getUserAnswer())){
                 //评判分数
                 userTopic.setUserScore(topic.getScore());
                 //计算总分

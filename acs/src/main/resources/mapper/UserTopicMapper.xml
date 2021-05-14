@@ -2,9 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sw.acs.mapper.UserTopicMapper">
     <select id="selectUserTopicList" resultType="com.sw.acs.domain.UserTopic">
-        select id, user_id, classes_id, exam_id, topic_id, user_answer, user_score, topic_status
-        from user_topic
-        where user_id = #{userId} and classes_id = #{classesId} and exam_id = #{examId}
+        select id, user_id, classes_id, exam_id, ut.topic_id, user_answer, user_score, topic_status
+        from user_topic ut
+        left join t_topic tt on tt.topic_id = ut.topic_id
+        where user_id =#{userId}  and classes_id =#{classesId}  and exam_id = #{examId} ORDER BY tt.topic_type,tt.topic_id
     </select>
 
     <insert id="insertUserTopic" parameterType="com.sw.acs.domain.UserTopic" useGeneratedKeys="true" keyProperty="id">

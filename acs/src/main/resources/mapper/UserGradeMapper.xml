@@ -3,7 +3,7 @@
 <mapper namespace="com.sw.acs.mapper.UserGradeMapper">
 
     <select id="selectUserGradeList" resultType="com.sw.acs.domain.UserGrade">
-        select u.user_id,u.user_name,c.classes_name,e.exam_name,ug.*
+        select u.user_id,u.nick_name,c.classes_name,e.exam_name,ug.*
         from t_user u
         join t_exam e on e.exam_id = #{examId}
         join t_classes c on c.classes_id = #{classesId}

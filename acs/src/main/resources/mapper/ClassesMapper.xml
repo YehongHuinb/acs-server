@@ -11,7 +11,7 @@
             AND c.classes_name like concat('%', #{classes.classesName}, '%')
         </if>
         <if test="classes.creatorName != null and classes.creatorName != ''">
-            AND u.user_name like concat('%', #{classes.creatorName}, '%')
+            AND u.nick_name like concat('%', #{classes.creatorName}, '%')
         </if>
     </select>
 

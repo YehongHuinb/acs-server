@@ -24,6 +24,8 @@ public class ExamController extends BaseController {
     @GetMapping("/list")
     public TableDataInfo getExamList(Exam exam){
         startPage();
+        Integer userId = AcsSecurityUtils.getUserId();
+        exam.setCreatorId(userId);
         List<Exam> list = examService.selectExamList(exam);
         return getDataTable(list);
     }
@@ -73,7 +75,12 @@ public class ExamController extends BaseController {
 
     @PutMapping("/update")
     public AjaxResult updateExam(@RequestBody Exam exam){
-        return toAjax(examService.updateExam(exam));
+        if(examService.updateExam(exam)==1) {
+            return AjaxResult.success("修改成功！");
+        }
+        else{
+            return AjaxResult.error("已发布的试卷无法更新！");
+        }
     }
 
 

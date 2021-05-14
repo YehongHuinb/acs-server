@@ -93,7 +93,6 @@ public class UserProfileController extends BaseController {
             {
                 AjaxResult ajax = AjaxResult.success();
                 ajax.put("imgUrl", avatar);
-
                 return ajax;
             }
         }

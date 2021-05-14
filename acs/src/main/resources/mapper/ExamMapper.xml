@@ -6,7 +6,7 @@
                e.topic_num, e.total_score, e.pass_mark, e.permit_copy, e.disrupt_order,e.repeat_test, e.auto_mack
         from t_exam e
         left join t_user u on creator_id = user_id
-        where e.exam_id != 0
+        where e.exam_id != 0 AND e.creator_id = #{creatorId}
         <if test="examName != null and examName != ''">
             AND e.exam_name like concat('%', #{examName}, '%')
         </if>

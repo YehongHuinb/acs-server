@@ -6,7 +6,7 @@
         select t.topic_id, t.question, t.choice, t.topic_type, t.correct_answer, t.score, t.difficulty, t.analysis, t.create_date, t.update_date
         from t_topic t
         left join exam_topic et on t.topic_id = et.topic_id
-        where et.exam_id = #{examId}
+        where et.exam_id = #{examId} order by t.topic_type, t.topic_id
     </select>
 
     <select id="selectTopicById" resultType="com.sw.acs.domain.Topic">

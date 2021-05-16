@@ -10,7 +10,7 @@
 
 ## 快速运行
 
-~~~
+~~~powershell
 mvn package
 
 mvn spring-boot:run
